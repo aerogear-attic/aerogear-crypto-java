@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cryptoparty</groupId>
+    <artifactId>cryptoparty</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>secondsun</id>
+            <name>Summers Pittman</name>
+            <url>http://blog.sagaoftherealms.net/</url>
+            <email>supittma@redhat.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:abstractj/cryptoparty.git</connection>
+        <developerConnection>scm:git:git@github.com:abstractj/cryptoparty.git</developerConnection>
+        <url>git@github.com:abstractj/cryptoparty.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <proguard.skip>true</proguard.skip>
+        <android.avd>15</android.avd>
+        <debug>true</debug>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <configuration>
+                        <sdk>
+                            <platform>17</platform>
+                        </sdk>
+                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    </configuration>
+                    <extensions>true</extensions>
+
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <configuration>
+                    <run>
+                        <debug>${debug}</debug>
+                    </run>
+                    <sdk>
+                    </sdk>
+                    <emulator>
+                        <avd>${android.avd}</avd>
+                    </emulator>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <proguard>
+                        <skip>${proguard.skip}</skip>
+                    </proguard>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.google.code.gson</groupId>
+                            <artifactId>gson</artifactId>
+                            <version>2.2.2</version>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>com.google.guava</groupId>
+                            <artifactId>guava</artifactId>
+                            <version>13.0.1</version>
+                        </artifactItem>
+                    </artifactItems>
+                    <outputDirectory>${basedir}/libs</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <type>jar</type>
+                                    <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.0.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+            <version>4.1.1.4</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>r7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>13.0.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk16</artifactId>
+            <version>140</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <proguard.skip>false</proguard.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
