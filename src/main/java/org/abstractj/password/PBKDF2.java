@@ -10,7 +10,7 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 import static org.abstractj.crypto.Util.*;
 
-public class PBKDF2 {
+public class Pbkdf2 {
 
     private static final int DERIVED_KEY_LENGTH = 160;
     private static final int ITERATIONS = 20000;
@@ -20,7 +20,7 @@ public class PBKDF2 {
     private byte[] salt;
     private SecretKeyFactory secretKeyFactory;
 
-    public PBKDF2() {
+    public Pbkdf2() {
         final String algorithm = "PBKDF2WithHmacSHA1";
         try {
             this.secretKeyFactory = SecretKeyFactory.getInstance(algorithm);
@@ -29,7 +29,7 @@ public class PBKDF2 {
         }
     }
 
-    public PBKDF2(String algorithm) {
+    public Pbkdf2(String algorithm) {
         try {
             this.secretKeyFactory = SecretKeyFactory.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
