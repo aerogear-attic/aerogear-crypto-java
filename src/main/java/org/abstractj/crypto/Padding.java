@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package org.abstractj.fixture;
+package org.abstractj.crypto;
 
-public class TestVectors {
+public enum Padding {
 
-    public static final String PASSWORD = "My Bonnie lies over the ocean, my Bonnie lies over the sea";
-    public static final String INVALID_PASSWORD = "invalid";
+    NONE("NoPadding"),
+    PKCS7("PKCS7Padding");
 
-    /**
-     * RFC 6070 - PKCS #5 PBKDF2 Test Vectors
-     */
+    private final String padding;
 
-    public static final String BOB_PRIVATE_KEY = "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb";
+    Padding(String padding) {
+        this.padding = padding;
+    }
 
+    @Override
+    public String toString() {
+        return padding;
+    }
 }

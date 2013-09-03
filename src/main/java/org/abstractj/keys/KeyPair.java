@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package org.abstractj.fixture;
+package org.abstractj.keys;
 
-public class TestVectors {
+public class KeyPair {
 
-    public static final String PASSWORD = "My Bonnie lies over the ocean, my Bonnie lies over the sea";
-    public static final String INVALID_PASSWORD = "invalid";
+    private final PrivateKey privateKey;
+    private final PublicKey publicKey;
 
-    /**
-     * RFC 6070 - PKCS #5 PBKDF2 Test Vectors
-     */
-
-    public static final String BOB_PRIVATE_KEY = "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb";
-
+    public KeyPair(PrivateKey privateKey, PublicKey publicKey) {
+        this.privateKey = privateKey;
+        this.publicKey = publicKey;
+    }
 }

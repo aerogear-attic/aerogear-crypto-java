@@ -29,4 +29,12 @@ public class Util {
             throw new RuntimeException("Invalid size: " + size);
         return size;
     }
+
+    public static String formatter(Algorithm algorithm, BlockMode mode) {
+        return String.format("%s/%s", algorithm, mode);
+    }
+
+    public static String formatter(BlockMode mode, Padding padding) {
+        return String.format("%s/%s", mode, padding);
+    }
 }
