@@ -15,7 +15,7 @@ public class PBKDF2 {
     private static final int DERIVED_KEY_LENGTH = 160;
     private static final int ITERATIONS = 20000;
     private static final int MINIMUM_SALT_LENGTH = 5;
-    private static final int MINIMUM_ITERATION_LENGTH = 5;
+    private static final int MINIMUM_ITERATION = 10000;
 
     private byte[] salt;
     private SecretKeyFactory secretKeyFactory;
@@ -39,7 +39,7 @@ public class PBKDF2 {
 
     public byte[] encrypt(String password, byte[] salt, int iterations) throws InvalidKeySpecException {
         this.salt = checkLength(salt, MINIMUM_SALT_LENGTH);
-        iterations = checkSize(iterations, MINIMUM_ITERATION_LENGTH);
+        iterations = checkSize(iterations, MINIMUM_ITERATION);
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, DERIVED_KEY_LENGTH);
         return secretKeyFactory.generateSecret(spec).getEncoded();
     }
