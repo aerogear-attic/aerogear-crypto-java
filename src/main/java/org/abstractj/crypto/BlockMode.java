@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package org.abstractj.fixture;
+package org.abstractj.crypto;
 
-public class TestVectors {
+public enum BlockMode {
 
-    public static final String PASSWORD = "My Bonnie lies over the ocean, my Bonnie lies over the sea";
-    public static final String INVALID_PASSWORD = "invalid";
+    GCM("GCM", Padding.NONE),
+    CBC("CBC", Padding.PKCS7);
 
-    /**
-     * RFC 6070 - PKCS #5 PBKDF2 Test Vectors
-     */
+    private final Padding padding;
+    private String mode;
 
-    public static final String BOB_PRIVATE_KEY = "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb";
+    private BlockMode(String mode, Padding padding) {
+        this.mode = mode;
+        this.padding = padding;
+    }
 
+    @Override
+    public String toString() {
+        return String.format("%s/%s", mode, padding);
+    }
 }
