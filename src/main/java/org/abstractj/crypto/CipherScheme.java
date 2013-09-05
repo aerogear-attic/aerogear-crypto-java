@@ -16,9 +16,10 @@
 
 package org.abstractj.crypto;
 
+import org.abstractj.CryptoParty;
+
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
 import java.security.NoSuchAlgorithmException;
 
 import static org.abstractj.crypto.Algorithm.AES;
@@ -29,6 +30,10 @@ public class CipherScheme {
 
     private static String transformation;
     private byte[] ivBytes;
+
+    static {
+        CryptoParty.loadProvider();
+    }
 
     public CipherScheme(BlockMode mode) {
         transformation = formatter(AES, mode);
@@ -51,7 +56,7 @@ public class CipherScheme {
         return cipher;
     }
 
-    public IvParameterSpec getIV() {
-        return new IvParameterSpec(ivBytes);
+    public byte[] getIV() {
+        return ivBytes;
     }
 }

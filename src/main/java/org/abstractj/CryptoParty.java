@@ -28,5 +28,14 @@ public class CryptoParty {
         }
     }
 
+    //PBKDF2
+    public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
+    public static final int DERIVED_KEY_LENGTH = 160;
+    public static final int ITERATIONS = 20000;
+    public static final int MINIMUM_SALT_LENGTH = 5;
+    public static final int MINIMUM_ITERATION = 10000;
+
+
+    //AES
     public static final int AES_SECRETKEY_BYTES = 16;
 }

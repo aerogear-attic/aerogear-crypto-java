@@ -25,23 +25,22 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
+import static org.abstractj.CryptoParty.DERIVED_KEY_LENGTH;
+import static org.abstractj.CryptoParty.ITERATIONS;
+import static org.abstractj.CryptoParty.MINIMUM_ITERATION;
+import static org.abstractj.CryptoParty.MINIMUM_SALT_LENGTH;
+import static org.abstractj.CryptoParty.PBKDF2_ALGORITHM;
 import static org.abstractj.crypto.Util.checkLength;
 import static org.abstractj.crypto.Util.checkSize;
 
 public class Pbkdf2 {
 
-    private static final int DERIVED_KEY_LENGTH = 160;
-    private static final int ITERATIONS = 20000;
-    private static final int MINIMUM_SALT_LENGTH = 5;
-    private static final int MINIMUM_ITERATION = 10000;
-
     private byte[] salt;
     private SecretKeyFactory secretKeyFactory;
 
     public Pbkdf2() {
-        final String algorithm = "PBKDF2WithHmacSHA1";
         try {
-            this.secretKeyFactory = SecretKeyFactory.getInstance(algorithm);
+            this.secretKeyFactory = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

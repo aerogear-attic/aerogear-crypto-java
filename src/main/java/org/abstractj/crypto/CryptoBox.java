@@ -22,6 +22,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.ShortBufferException;
+import javax.crypto.spec.IvParameterSpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 
@@ -45,7 +46,7 @@ public class CryptoBox {
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.ENCRYPT_MODE, privateKey.getNewKey(), cipherScheme.getIV());
+            cipher.init(Cipher.ENCRYPT_MODE, privateKey.getNewKey(), new IvParameterSpec(cipherScheme.getIV()));
             cipherText = new byte[cipher.getOutputSize(input.length)];
             int ctLength = cipher.update(input, 0, input.length, cipherText, 0);
             cipher.doFinal(cipherText, ctLength);
@@ -65,13 +66,13 @@ public class CryptoBox {
         return cipherText;
     }
 
-    public byte[] decrypt(byte[] cipherText) {
+    public byte[] decrypt(byte[] cipherText, byte[] IV) {
 
         byte[] plainText = null;
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.DECRYPT_MODE, privateKey.getNewKey(), cipherScheme.getIV());
+            cipher.init(Cipher.DECRYPT_MODE, privateKey.getNewKey(), new IvParameterSpec(IV));
             plainText = new byte[cipher.getOutputSize(cipherText.length)];
             int ptLength = cipher.update(cipherText, 0, cipherText.length, plainText, 0);
             cipher.doFinal(plainText, ptLength);
@@ -88,5 +89,9 @@ public class CryptoBox {
         }
 
         return plainText;
+    }
+
+    public byte[] decrypt(byte[] cipherText) {
+        return decrypt(cipherText, cipherScheme.getIV());
     }
 }
