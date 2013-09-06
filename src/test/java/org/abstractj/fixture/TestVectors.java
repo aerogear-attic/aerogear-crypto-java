@@ -30,10 +30,9 @@ public class TestVectors {
             "0e3be8250c46f06dceea3a7fa1348057e2f6556ad6b1318a024a838f21af1fde" +
             "048977eb48f59ffd4924ca1c60902e52f0a089bc76897040e082f93776384864" +
             "5e0705";
-    public static final String CRYPTOBOX_CIPHERTEXT = "f3ffc7703f9400e52a7dfb4b3d3305d98e993b9f48681273c29650ba32fc76ce" +
-            "48332ea7164d96a4476fb8c531a1186ac0dfc17c98dce87b4da7f011ec48c972" +
-            "71d2c20f9b928fe2270d6fb863d51738b48eeee314a7cc8ab932164548e526ae" +
-            "90224368517acfeabd6bb3732bc0e9da99832b61ca01b6de56244a9e88d5f9b3" +
-            "7973f622a43d14a6599b1f654cb45a74e355a5";
+    public static final String CRYPTOBOX_CIPHERTEXT = "e2c25ca687ec8478be8ddb1151eed314df7712758b5456f05da2a" +
+            "794414f7e09ccdfb62658712188376b1b876885e52e424959317e500771ae692b68503f83f4dc4b9f6767044ec2f4eb13a" +
+            "16874e9cc17c198d3be714c18268a4268f36cb9045123ac080eacf8c50c83d7a26ab09a998f317899a3729c7c52a1f9bfea" +
+            "bf0e757fcc586c20a25efa5414f5d347de719a7e8bba";
 
 }
