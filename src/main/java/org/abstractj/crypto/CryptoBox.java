@@ -16,6 +16,7 @@
 
 package org.abstractj.crypto;
 
+import org.abstractj.encoders.Encoder;
 import org.abstractj.keys.PrivateKey;
 
 import javax.crypto.BadPaddingException;
@@ -23,17 +24,31 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+
+import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
+import static org.abstractj.crypto.Algorithm.AES;
+import static org.abstractj.crypto.Util.checkLength;
 
 public class CryptoBox {
 
     private CipherScheme cipherScheme;
-    private PrivateKey privateKey;
+    private byte[] privateKey;
 
-    public CryptoBox(PrivateKey privateKey) {
+    public CryptoBox(byte[] privateKey) {
+        checkLength(privateKey, AES_SECRETKEY_BYTES);
         this.privateKey = privateKey;
         this.cipherScheme = new CipherScheme();
+    }
+
+    public CryptoBox(PrivateKey privateKey) {
+        this(privateKey.toBytes());
+    }
+
+    public CryptoBox(String privateKey, Encoder encoder) {
+        this(encoder.decode(privateKey));
     }
 
     public CryptoBox(byte[] privateKey, byte[] publicKey) {
@@ -46,7 +61,9 @@ public class CryptoBox {
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.ENCRYPT_MODE, privateKey.getNewKey(), new IvParameterSpec(cipherScheme.getIV()));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
+            System.out.println(privateKey.length);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(cipherScheme.getIV()));
             cipherText = new byte[cipher.getOutputSize(input.length)];
             int ctLength = cipher.update(input, 0, input.length, cipherText, 0);
             cipher.doFinal(cipherText, ctLength);
@@ -66,13 +83,14 @@ public class CryptoBox {
         return cipherText;
     }
 
-    public byte[] decrypt(byte[] cipherText, byte[] IV) {
+    public byte[] decrypt(byte[] IV, byte[] cipherText) {
 
         byte[] plainText = null;
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.DECRYPT_MODE, privateKey.getNewKey(), new IvParameterSpec(IV));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(IV));
             plainText = new byte[cipher.getOutputSize(cipherText.length)];
             int ptLength = cipher.update(cipherText, 0, cipherText.length, plainText, 0);
             cipher.doFinal(plainText, ptLength);
