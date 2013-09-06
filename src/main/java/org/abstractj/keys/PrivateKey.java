@@ -19,7 +19,6 @@ package org.abstractj.keys;
 import org.abstractj.encoders.Encoder;
 
 import javax.crypto.KeyGenerator;
-import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 
 import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
@@ -32,7 +31,6 @@ public class PrivateKey {
     private byte[] secretKey;
 
     public PrivateKey() {
-
         KeyGenerator kGen;
         try {
             kGen = KeyGenerator.getInstance(AES.toString());
@@ -49,13 +47,14 @@ public class PrivateKey {
         this.secretKey = keyBytes;
     }
 
+    public PrivateKey(String secretKey) {
+        this.secretKey = HEX.decode(secretKey);
+        checkLength(this.secretKey, AES_SECRETKEY_BYTES);
+    }
+
     public PrivateKey(String secretKey, Encoder encoder) {
         checkLength(encoder.decode(secretKey), AES_SECRETKEY_BYTES);
         this.secretKey = encoder.decode(secretKey);
-    }
-
-    public SecretKeySpec getNewKey() {
-        return new SecretKeySpec(secretKey, AES.toString());
     }
 
     public byte[] toBytes() {

@@ -16,25 +16,21 @@
 
 package org.abstractj.crypto;
 
-public class Util {
+import org.junit.Test;
 
-    public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length != size)
-            throw new RuntimeException("Invalid length: " + data.length);
-        return data;
+import static org.abstractj.crypto.Padding.NONE;
+import static org.abstractj.crypto.Padding.PKCS7;
+import static org.junit.Assert.assertEquals;
+
+public class PaddingTest {
+
+    @Test
+    public void testNoPaddingToString() throws Exception {
+        assertEquals("Should return the correct padding name", "NoPadding", NONE.toString());
     }
 
-    public static int checkSize(int size, int minimumSize) {
-        if (size < minimumSize)
-            throw new RuntimeException("Invalid size: " + size);
-        return size;
-    }
-
-    public static String formatter(Algorithm algorithm, BlockMode mode) {
-        return String.format("%s/%s", algorithm, mode);
-    }
-
-    public static String formatter(BlockMode mode, Padding padding) {
-        return String.format("%s/%s", mode, padding);
+    @Test
+    public void testPkcs7PaddingToString() throws Exception {
+        assertEquals("Should return the correct padding name", "PKCS7Padding", PKCS7.toString());
     }
 }
