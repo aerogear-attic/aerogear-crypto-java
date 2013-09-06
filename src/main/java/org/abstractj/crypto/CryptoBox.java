@@ -17,6 +17,7 @@
 package org.abstractj.crypto;
 
 import org.abstractj.encoders.Encoder;
+import org.abstractj.encoders.Hex;
 import org.abstractj.keys.PrivateKey;
 
 import javax.crypto.BadPaddingException;
@@ -31,16 +32,18 @@ import java.security.InvalidKeyException;
 import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
 import static org.abstractj.crypto.Algorithm.AES;
 import static org.abstractj.crypto.Util.checkLength;
+import static org.abstractj.encoders.Encoder.HEX;
 
 public class CryptoBox {
 
+    private SecretKeySpec secretKeySpec;
     private CipherScheme cipherScheme;
-    private byte[] privateKey;
 
     public CryptoBox(byte[] privateKey) {
         checkLength(privateKey, AES_SECRETKEY_BYTES);
-        this.privateKey = privateKey;
         this.cipherScheme = new CipherScheme();
+        this.secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
+
     }
 
     public CryptoBox(PrivateKey privateKey) {
@@ -55,17 +58,15 @@ public class CryptoBox {
         //TODO
     }
 
-    public byte[] encrypt(byte[] input) {
+    public byte[] encrypt(byte[] IV, byte[] message) {
 
         byte[] cipherText = null;
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
-            System.out.println(privateKey.length);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(cipherScheme.getIV()));
-            cipherText = new byte[cipher.getOutputSize(input.length)];
-            int ctLength = cipher.update(input, 0, input.length, cipherText, 0);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(IV));
+            cipherText = new byte[cipher.getOutputSize(message.length)];
+            int ctLength = cipher.update(message, 0, message.length, cipherText, 0);
             cipher.doFinal(cipherText, ctLength);
         } catch (BadPaddingException e) {
             e.printStackTrace();
@@ -83,13 +84,20 @@ public class CryptoBox {
         return cipherText;
     }
 
+    public byte[] encrypt(byte[] input) {
+        return encrypt(cipherScheme.getIV(), input);
+    }
+
+    public byte[] encrypt(String IV, String message, Encoder encoder) {
+        return encrypt(encoder.decode(IV), encoder.decode(message));
+    }
+
     public byte[] decrypt(byte[] IV, byte[] cipherText) {
 
         byte[] plainText = null;
 
         try {
             Cipher cipher = cipherScheme.getNewCipher();
-            SecretKeySpec secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(IV));
             plainText = new byte[cipher.getOutputSize(cipherText.length)];
             int ptLength = cipher.update(cipherText, 0, cipherText.length, plainText, 0);
@@ -99,7 +107,7 @@ public class CryptoBox {
         } catch (InvalidAlgorithmParameterException e) {
             e.printStackTrace();
         } catch (BadPaddingException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Decryption failed. Ciphertext verification failed.", e);
         } catch (ShortBufferException e) {
             e.printStackTrace();
         } catch (IllegalBlockSizeException e) {
@@ -110,6 +118,10 @@ public class CryptoBox {
     }
 
     public byte[] decrypt(byte[] cipherText) {
-        return decrypt(cipherText, cipherScheme.getIV());
+        return decrypt(cipherScheme.getIV(), cipherText);
+    }
+
+    public byte[] decrypt(String IV, String cipherText, Encoder encoder) {
+        return decrypt(encoder.decode(IV), encoder.decode(cipherText));
     }
 }
