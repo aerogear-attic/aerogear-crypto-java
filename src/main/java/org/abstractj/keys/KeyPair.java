@@ -16,13 +16,40 @@
 
 package org.abstractj.keys;
 
+import javax.crypto.KeyAgreement;
+import java.security.*;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.ECGenParameterSpec;
+
 public class KeyPair {
 
-    private final PrivateKey privateKey;
-    private final PublicKey publicKey;
+    private final java.security.KeyPair keyPair;
 
-    public KeyPair(PrivateKey privateKey, PublicKey publicKey) {
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
+    public KeyPair() {
+        //Generate keypair
+        KeyPairGenerator keyGen = null;
+        try {
+            keyGen = KeyPairGenerator.getInstance("ECDH", "BC");
+            ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
+            keyGen.initialize(ecSpec, new SecureRandom());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
+
+        this.keyPair = keyGen.generateKeyPair();
+
+    }
+
+    public java.security.PublicKey getPublic(){
+        return keyPair.getPublic();
+    }
+
+    public PrivateKey getPrivate(){
+        return keyPair.getPrivate();
     }
 }

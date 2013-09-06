@@ -16,6 +16,8 @@
 
 package org.abstractj.crypto;
 
+import java.util.Arrays;
+
 public class Util {
 
     public static byte[] checkLength(byte[] data, int size) {
@@ -30,11 +32,21 @@ public class Util {
         return size;
     }
 
-    public static String formatter(Algorithm algorithm, BlockMode mode) {
+    public static String formatter(Algorithm algorithm, BlockCipher.Mode mode) {
         return String.format("%s/%s", algorithm, mode);
     }
 
-    public static String formatter(BlockMode mode, Padding padding) {
+    public static String formatter(BlockCipher.Mode mode, Padding padding) {
         return String.format("%s/%s", mode, padding);
+    }
+
+    public static byte[] newBuffer(int length) {
+        return new byte[length];
+    }
+
+    public static byte[] newByteArray(byte[] data) {
+        byte[] buffer = new byte[data.length];
+        System.arraycopy(data, 0, buffer, 0, data.length);
+        return buffer;
     }
 }

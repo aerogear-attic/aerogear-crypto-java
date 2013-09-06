@@ -22,7 +22,7 @@ public class TestVectors {
     public static final String INVALID_PASSWORD = "invalid";
 
     //TEST VECTORS
-    public static final String BOB_SECRET_KEY = "5dab087e624a8a4b79e17f8b83800ee6";
+    public static final String BOB_SECRET_KEY = "3e0ee6ac7305c8a74426316bc0398ff794c17d2c3609411c";
 
     public static final String CRYPTOBOX_IV = "69696ee955b62b73cd62bda875fc73d68219e0036b7a0b37";
     public static final String CRYPTOBOX_MESSAGE = "be075fc53c81f2d5cf141316ebeb0c7b5228c52a4c62cbd44b66849b64244ffc" +
@@ -30,9 +30,9 @@ public class TestVectors {
             "0e3be8250c46f06dceea3a7fa1348057e2f6556ad6b1318a024a838f21af1fde" +
             "048977eb48f59ffd4924ca1c60902e52f0a089bc76897040e082f93776384864" +
             "5e0705";
-    public static final String CRYPTOBOX_CIPHERTEXT = "e2c25ca687ec8478be8ddb1151eed314df7712758b5456f05da2a" +
-            "794414f7e09ccdfb62658712188376b1b876885e52e424959317e500771ae692b68503f83f4dc4b9f6767044ec2f4eb13a" +
-            "16874e9cc17c198d3be714c18268a4268f36cb9045123ac080eacf8c50c83d7a26ab09a998f317899a3729c7c52a1f9bfea" +
-            "bf0e757fcc586c20a25efa5414f5d347de719a7e8bba";
+    public static final String CRYPTOBOX_CIPHERTEXT = "b0da984501f9ab4898da59ea7783495e323c563471a4422154c92831a889f" +
+            "cfefc61da727394a83e58184299bcfaca2327fee6b1f21b919c9d2cf1977c3bfbc62449d92325dcc9290a31b7677845436482ee4f" +
+            "47315b95d3070457723168a7dfa62feed60487ec1b08e4979c9dd137ae53938882c8088753cb2cc62c63fb3a7dc75c6d7bcb88b2" +
+            "0d03fd56fd47a946a916189b";
 
 }

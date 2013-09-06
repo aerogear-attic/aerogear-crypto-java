@@ -17,111 +17,127 @@
 package org.abstractj.crypto;
 
 import org.abstractj.encoders.Encoder;
-import org.abstractj.encoders.Hex;
 import org.abstractj.keys.PrivateKey;
+import org.bouncycastle.crypto.InvalidCipherTextException;
+import org.bouncycastle.crypto.modes.AEADBlockCipher;
+import org.bouncycastle.crypto.params.AEADParameters;
+import org.bouncycastle.crypto.params.KeyParameter;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.ShortBufferException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidAlgorithmParameterException;
+import javax.crypto.KeyAgreement;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PublicKey;
 
-import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
-import static org.abstractj.crypto.Algorithm.AES;
+import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
+import static org.abstractj.CryptoParty.TAG_LENGTH;
+import static org.abstractj.crypto.BlockCipher.Mode.*;
 import static org.abstractj.crypto.Util.checkLength;
-import static org.abstractj.encoders.Encoder.HEX;
+import static org.abstractj.crypto.Util.newBuffer;
+import static org.abstractj.crypto.Util.newByteArray;
 
 public class CryptoBox {
 
-    private SecretKeySpec secretKeySpec;
-    private CipherScheme cipherScheme;
+    private byte[] key;
+    private AEADBlockCipher cipher;
+    private byte[] authData;
 
-    public CryptoBox(byte[] privateKey) {
-        checkLength(privateKey, AES_SECRETKEY_BYTES);
-        this.cipherScheme = new CipherScheme();
-        this.secretKeySpec = new SecretKeySpec(privateKey, AES.toString());
+    public CryptoBox(byte[] key) {
+        checkLength(key, MINIMUM_SECRET_KEY_SIZE);
+        this.cipher = BlockCipher.getInstance();
+        this.key = key;
 
     }
 
-    public CryptoBox(PrivateKey privateKey) {
-        this(privateKey.toBytes());
+    public CryptoBox(PrivateKey key) {
+        this(key.toBytes());
     }
 
-    public CryptoBox(String privateKey, Encoder encoder) {
-        this(encoder.decode(privateKey));
-    }
-
-    public CryptoBox(byte[] privateKey, byte[] publicKey) {
-        //TODO
-    }
-
-    public byte[] encrypt(byte[] IV, byte[] message) {
-
-        byte[] cipherText = null;
-
+    public CryptoBox(java.security.PrivateKey privateKey, PublicKey publicKey) {
         try {
-            Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(IV));
-            cipherText = new byte[cipher.getOutputSize(message.length)];
-            int ctLength = cipher.update(message, 0, message.length, cipherText, 0);
-            cipher.doFinal(cipherText, ctLength);
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
+            this.cipher = BlockCipher.getNewCipher(GCM);
+            this.key = generateSecret(privateKey, publicKey);
         } catch (InvalidKeyException e) {
             e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (ShortBufferException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
+        } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
+    }
 
+    private byte[] generateSecret(java.security.PrivateKey key, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+        MessageDigest hash = MessageDigest.getInstance("SHA-256", "BC");
+        KeyAgreement keyAgree = KeyAgreement.getInstance("ECDH", "BC");
+        keyAgree.init(key);
+        keyAgree.doPhase(publicKey, true);
+        return hash.digest(keyAgree.generateSecret());
+    }
+
+    public CryptoBox(String key, Encoder encoder) {
+        this(encoder.decode(key));
+    }
+
+    public byte[] encrypt(final byte[] IV, final byte[] message) throws RuntimeException {
+
+        AEADParameters aeadParams = new AEADParameters(
+                new KeyParameter(key), TAG_LENGTH,
+                IV,
+                authData);
+
+        cipher.init(true, aeadParams);
+        byte[] cipherText = newBuffer(cipher.getOutputSize(message.length));
+        int outputOffset = cipher.processBytes(message, 0, message.length, cipherText, 0);
+
+        try {
+            cipher.doFinal(cipherText, outputOffset);
+        } catch (InvalidCipherTextException e) {
+            throw new RuntimeException("Error: ", e);
+        }
 
         return cipherText;
     }
 
     public byte[] encrypt(byte[] input) {
-        return encrypt(cipherScheme.getIV(), input);
+        return encrypt(BlockCipher.getIV(), input);
     }
 
     public byte[] encrypt(String IV, String message, Encoder encoder) {
         return encrypt(encoder.decode(IV), encoder.decode(message));
     }
 
-    public byte[] decrypt(byte[] IV, byte[] cipherText) {
+    public byte[] decrypt(byte[] IV, byte[] cipherText) throws RuntimeException {
 
-        byte[] plainText = null;
+        AEADParameters aeadParams = new AEADParameters(
+                new KeyParameter(key), TAG_LENGTH,
+                IV,
+                authData);
+
+        cipher.init(false, aeadParams);
+        byte[] buffer = newByteArray(cipherText);
+        byte[] plainText = newBuffer(cipher.getOutputSize(cipherText.length));
+        int outputOffset = cipher.processBytes(buffer, 0, buffer.length, plainText, 0);
 
         try {
-            Cipher cipher = cipherScheme.getNewCipher();
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(IV));
-            plainText = new byte[cipher.getOutputSize(cipherText.length)];
-            int ptLength = cipher.update(cipherText, 0, cipherText.length, plainText, 0);
-            cipher.doFinal(plainText, ptLength);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            throw new RuntimeException("Decryption failed. Ciphertext verification failed.", e);
-        } catch (ShortBufferException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
+            cipher.doFinal(plainText, outputOffset);
+        } catch (InvalidCipherTextException e) {
+            throw new RuntimeException("Error: " ,e);
         }
 
         return plainText;
     }
 
     public byte[] decrypt(byte[] cipherText) {
-        return decrypt(cipherScheme.getIV(), cipherText);
+        return decrypt(BlockCipher.getIV(), cipherText);
     }
 
     public byte[] decrypt(String IV, String cipherText, Encoder encoder) {
         return decrypt(encoder.decode(IV), encoder.decode(cipherText));
+    }
+
+    //TODO
+    public void updateAAD(byte[] authData) {
+        this.authData = authData;
     }
 }

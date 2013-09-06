@@ -21,7 +21,7 @@ import org.abstractj.encoders.Encoder;
 import javax.crypto.KeyGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
+import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
 import static org.abstractj.crypto.Algorithm.AES;
 import static org.abstractj.crypto.Util.checkLength;
 import static org.abstractj.encoders.Encoder.HEX;
@@ -36,24 +36,24 @@ public class PrivateKey {
             kGen = KeyGenerator.getInstance(AES.toString());
             kGen.init(AES.getKeySize());
             this.secretKey = kGen.generateKey().getEncoded();
-            checkLength(secretKey, AES_SECRETKEY_BYTES);
+            checkLength(secretKey, MINIMUM_SECRET_KEY_SIZE);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error: ", e);
         }
     }
 
     public PrivateKey(byte[] keyBytes) {
-        checkLength(keyBytes, AES_SECRETKEY_BYTES);
+        checkLength(keyBytes, MINIMUM_SECRET_KEY_SIZE);
         this.secretKey = keyBytes;
     }
 
     public PrivateKey(String secretKey) {
         this.secretKey = HEX.decode(secretKey);
-        checkLength(this.secretKey, AES_SECRETKEY_BYTES);
+        checkLength(this.secretKey, MINIMUM_SECRET_KEY_SIZE);
     }
 
     public PrivateKey(String secretKey, Encoder encoder) {
-        checkLength(encoder.decode(secretKey), AES_SECRETKEY_BYTES);
+        checkLength(encoder.decode(secretKey), MINIMUM_SECRET_KEY_SIZE);
         this.secretKey = encoder.decode(secretKey);
     }
 

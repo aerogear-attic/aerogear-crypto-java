@@ -16,21 +16,17 @@
 
 package org.abstractj.crypto;
 
-public enum BlockMode {
+import org.junit.Test;
 
-    GCM("GCM", Padding.NONE),
-    CBC("CBC", Padding.PKCS7);
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-    private final Padding padding;
-    private String mode;
+public class BlockCipherTest {
 
-    private BlockMode(String mode, Padding padding) {
-        this.mode = mode;
-        this.padding = padding;
+    @Test
+    public void testGetIV() throws Exception {
+        assertNotNull("IV should not be null", BlockCipher.getIV());
+        assertEquals("IV size should respect the mininum length", 16, BlockCipher.getIV().length);
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s/%s", mode, padding);
-    }
 }

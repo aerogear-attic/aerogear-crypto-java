@@ -21,15 +21,14 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.abstractj.encoders.Encoder.RAW;
+import static org.abstractj.encoders.Encoder.HEX;
+import static org.abstractj.fixture.TestVectors.BOB_SECRET_KEY;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_IV;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_MESSAGE;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.abstractj.fixture.TestVectors.BOB_SECRET_KEY;
-import static org.abstractj.encoders.Encoder.HEX;
 
 public class CryptoBoxTest {
 
