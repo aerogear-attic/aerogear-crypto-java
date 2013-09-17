@@ -16,18 +16,26 @@
 
 package org.abstractj.keys;
 
-import javax.crypto.KeyAgreement;
-import java.security.*;
+import org.abstractj.CryptoParty;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 
 public class KeyPair {
 
     private final java.security.KeyPair keyPair;
 
+    static {
+        CryptoParty.loadProvider();
+    }
+
     public KeyPair() {
-        //Generate keypair
+
         KeyPairGenerator keyGen = null;
         try {
             keyGen = KeyPairGenerator.getInstance("ECDH", "BC");
@@ -45,11 +53,11 @@ public class KeyPair {
 
     }
 
-    public java.security.PublicKey getPublic(){
+    public java.security.PublicKey getPublicKey() {
         return keyPair.getPublic();
     }
 
-    public PrivateKey getPrivate(){
+    public PrivateKey getPrivateKey() {
         return keyPair.getPrivate();
     }
 }

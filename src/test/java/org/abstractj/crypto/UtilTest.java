@@ -29,7 +29,7 @@ public class UtilTest {
     @Test
     public void testCheckLength() {
         try {
-            byte[] data = new byte[24];
+            byte[] data = new byte[32];
             checkLength(data, MINIMUM_SECRET_KEY_SIZE);
         } catch (Exception e) {
             fail("Should not raise any exception");

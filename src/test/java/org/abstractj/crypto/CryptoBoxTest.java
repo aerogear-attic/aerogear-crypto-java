@@ -16,16 +16,19 @@
 
 package org.abstractj.crypto;
 
+import org.abstractj.keys.KeyPair;
 import org.abstractj.keys.PrivateKey;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.abstractj.encoders.Encoder.HEX;
-import static org.abstractj.fixture.TestVectors.BOB_SECRET_KEY;
+import static org.abstractj.encoders.Encoder.RAW;
+import static org.abstractj.fixture.TestVectors.*;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_IV;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_MESSAGE;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -142,6 +145,62 @@ public class CryptoBoxTest {
 
         CryptoBox pandora = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
         pandora.decrypt(IV, ciphertext);
+        fail("Should raise an exception");
+    }
+
+    @Test
+    public void testAcceptKeyPairs() throws Exception {
+        try {
+            KeyPair keyPair = new KeyPair();
+            new CryptoBox(keyPair.getPrivateKey(), keyPair.getPublicKey());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Box should accept key pairs");
+        }
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNullPublicKey() throws Exception {
+        KeyPair keyPair = new KeyPair();
+        new CryptoBox(keyPair.getPrivateKey(),null);
+        fail("Should raise an exception");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNullSecretKey() throws Exception {
+        KeyPair keyPair = new KeyPair();
+        new CryptoBox(null, keyPair.getPublicKey());
+        fail("Should raise an exception");
+    }
+
+    @Test
+    public void testAsymmetricDecryptRawBytes() throws Exception {
+        KeyPair keyPair = new KeyPair();
+        KeyPair keyPairPandora = new KeyPair();
+
+        CryptoBox cryptoBox = new CryptoBox(keyPair.getPrivateKey(), keyPairPandora.getPublicKey());
+        byte[] IV = HEX.decode(BOX_NONCE);
+        byte[] expectedMessage = HEX.decode(BOX_MESSAGE);
+        byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
+
+
+        CryptoBox pandora = new CryptoBox(keyPairPandora.getPrivateKey(), keyPair.getPublicKey());
+        byte[] message = pandora.decrypt(IV, ciphertext);
+        assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testAsymmetricDecryptCorruptedCipherText() throws Exception {
+        KeyPair keyPair = new KeyPair();
+        CryptoBox box = new CryptoBox(keyPair.getPrivateKey(), keyPair.getPublicKey());
+        byte[] nonce = HEX.decode(BOX_NONCE);
+        byte[] message = HEX.decode(BOX_MESSAGE);
+        byte[] ciphertext = box.encrypt(nonce, message);
+        ciphertext[23] = ' ';
+
+        KeyPair keyPairPandora = new KeyPair();
+        CryptoBox pandora = new CryptoBox(keyPairPandora.getPrivateKey(), keyPairPandora.getPublicKey());
+        pandora.decrypt(nonce, ciphertext);
         fail("Should raise an exception");
     }
 }

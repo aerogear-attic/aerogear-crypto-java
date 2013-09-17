@@ -37,7 +37,7 @@ public class CryptoParty {
 
 
     //AES
-    public static final int MINIMUM_SECRET_KEY_SIZE = 24;
+    public static final int MINIMUM_SECRET_KEY_SIZE = 32;
 
     //GCM
     public static final int IV_LENGTH = 96;

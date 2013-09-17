@@ -32,7 +32,6 @@ import java.security.PublicKey;
 
 import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
 import static org.abstractj.CryptoParty.TAG_LENGTH;
-import static org.abstractj.crypto.BlockCipher.Mode.*;
 import static org.abstractj.crypto.Util.checkLength;
 import static org.abstractj.crypto.Util.newBuffer;
 import static org.abstractj.crypto.Util.newByteArray;
@@ -54,29 +53,33 @@ public class CryptoBox {
         this(key.toBytes());
     }
 
+    public CryptoBox(String key, Encoder encoder) {
+        this(encoder.decode(key));
+    }
+
     public CryptoBox(java.security.PrivateKey privateKey, PublicKey publicKey) {
+        this.cipher = BlockCipher.getInstance();
+        this.key = generateSecret(privateKey, publicKey);
+        checkLength(key, MINIMUM_SECRET_KEY_SIZE);
+    }
+
+    private byte[] generateSecret(java.security.PrivateKey privateKey, PublicKey publicKey) {
+        MessageDigest hash = null;
+        KeyAgreement keyAgree = null;
         try {
-            this.cipher = BlockCipher.getNewCipher(GCM);
-            this.key = generateSecret(privateKey, publicKey);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
+            hash = MessageDigest.getInstance("SHA-256", "BC");
+            keyAgree = KeyAgreement.getInstance("ECDH", "BC");
+            keyAgree.init(privateKey);
+            keyAgree.doPhase(publicKey, true);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
         }
-    }
 
-    private byte[] generateSecret(java.security.PrivateKey key, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
-        MessageDigest hash = MessageDigest.getInstance("SHA-256", "BC");
-        KeyAgreement keyAgree = KeyAgreement.getInstance("ECDH", "BC");
-        keyAgree.init(key);
-        keyAgree.doPhase(publicKey, true);
         return hash.digest(keyAgree.generateSecret());
-    }
-
-    public CryptoBox(String key, Encoder encoder) {
-        this(encoder.decode(key));
     }
 
     public byte[] encrypt(final byte[] IV, final byte[] message) throws RuntimeException {
@@ -122,7 +125,7 @@ public class CryptoBox {
         try {
             cipher.doFinal(plainText, outputOffset);
         } catch (InvalidCipherTextException e) {
-            throw new RuntimeException("Error: " ,e);
+            throw new RuntimeException("Error: ", e);
         }
 
         return plainText;
