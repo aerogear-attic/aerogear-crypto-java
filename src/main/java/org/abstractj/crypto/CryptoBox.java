@@ -76,7 +76,7 @@ public class CryptoBox {
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Fail: ", e);
         }
 
         return hash.digest(keyAgree.generateSecret());
@@ -102,10 +102,6 @@ public class CryptoBox {
         return cipherText;
     }
 
-    public byte[] encrypt(byte[] input) {
-        return encrypt(BlockCipher.getIV(), input);
-    }
-
     public byte[] encrypt(String IV, String message, Encoder encoder) {
         return encrypt(encoder.decode(IV), encoder.decode(message));
     }
@@ -129,10 +125,6 @@ public class CryptoBox {
         }
 
         return plainText;
-    }
-
-    public byte[] decrypt(byte[] cipherText) {
-        return decrypt(BlockCipher.getIV(), cipherText);
     }
 
     public byte[] decrypt(String IV, String cipherText, Encoder encoder) {

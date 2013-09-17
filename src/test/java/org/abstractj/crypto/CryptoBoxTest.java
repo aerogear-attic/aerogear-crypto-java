@@ -69,19 +69,6 @@ public class CryptoBoxTest {
 
     @Test
     public void testEncryptRawBytes() throws Exception {
-        try {
-            CryptoBox cryptoBox = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
-            byte[] message = HEX.decode(CRYPTOBOX_MESSAGE);
-            byte[] result = cryptoBox.encrypt(message);
-            assertNotNull("Result should not be empty", result);
-        } catch (Exception e) {
-            fail("Should not raise any exception");
-        }
-
-    }
-
-    @Test
-    public void testEncryptRawBytesWithIV() throws Exception {
         CryptoBox cryptoBox = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
         byte[] IV = HEX.decode(CRYPTOBOX_IV);
         byte[] message = HEX.decode(CRYPTOBOX_MESSAGE);
