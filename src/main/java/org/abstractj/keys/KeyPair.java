@@ -16,13 +16,48 @@
 
 package org.abstractj.keys;
 
+import org.abstractj.CryptoParty;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.SecureRandom;
+import java.security.spec.ECGenParameterSpec;
+
 public class KeyPair {
 
-    private final PrivateKey privateKey;
-    private final PublicKey publicKey;
+    private final java.security.KeyPair keyPair;
 
-    public KeyPair(PrivateKey privateKey, PublicKey publicKey) {
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
+    static {
+        CryptoParty.loadProvider();
+    }
+
+    public KeyPair() {
+
+        KeyPairGenerator keyGen = null;
+        try {
+            keyGen = KeyPairGenerator.getInstance("ECDH", "BC");
+            ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
+            keyGen.initialize(ecSpec, new SecureRandom());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
+
+        this.keyPair = keyGen.generateKeyPair();
+
+    }
+
+    public java.security.PublicKey getPublicKey() {
+        return keyPair.getPublic();
+    }
+
+    public PrivateKey getPrivateKey() {
+        return keyPair.getPrivate();
     }
 }

@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 
-package org.abstractj.keys;
+package org.abstractj.crypto;
 
-public class PublicKey {
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class BlockCipherTest {
+
+    @Test
+    public void testGetIV() throws Exception {
+        assertNotNull("IV should not be null", BlockCipher.getIV());
+        assertEquals("IV size should respect the mininum length", 16, BlockCipher.getIV().length);
+    }
+
 }

@@ -45,4 +45,10 @@ public class Random {
         secureRandom.nextBytes(buffer);
         return buffer;
     }
+
+    public SecureRandom getSecureRandom(){
+        byte[] buffer = new byte[16];
+        secureRandom.nextBytes(buffer);
+        return secureRandom;
+    }
 }

@@ -18,7 +18,7 @@ package org.abstractj.crypto;
 
 import org.junit.Test;
 
-import static org.abstractj.CryptoParty.AES_SECRETKEY_BYTES;
+import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
 import static org.abstractj.CryptoParty.MINIMUM_ITERATION;
 import static org.abstractj.crypto.Util.checkLength;
 import static org.abstractj.crypto.Util.checkSize;
@@ -29,8 +29,8 @@ public class UtilTest {
     @Test
     public void testCheckLength() {
         try {
-            byte[] data = new byte[16];
-            checkLength(data, AES_SECRETKEY_BYTES);
+            byte[] data = new byte[32];
+            checkLength(data, MINIMUM_SECRET_KEY_SIZE);
         } catch (Exception e) {
             fail("Should not raise any exception");
         }
@@ -39,7 +39,7 @@ public class UtilTest {
     @Test(expected = RuntimeException.class)
     public void testIncorrectLength() {
         byte[] data = new byte[14];
-        checkLength(data, AES_SECRETKEY_BYTES);
+        checkLength(data, MINIMUM_SECRET_KEY_SIZE);
     }
 
     @Test

@@ -29,6 +29,6 @@ public class AlgorithmTest {
 
     @Test
     public void testGetAESKeySize() throws Exception {
-        assertEquals("Should return the correct key size", 128, AES.getKeySize());
+        assertEquals("Should return the correct key size", 256, AES.getKeySize());
     }
 }

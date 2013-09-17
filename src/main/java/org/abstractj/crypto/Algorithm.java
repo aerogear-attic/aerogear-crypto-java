@@ -18,7 +18,7 @@ package org.abstractj.crypto;
 
 public enum Algorithm {
 
-    AES("AES", 128);
+    AES("AES", 256);
 
     private final String name;
     private final int keySize;
