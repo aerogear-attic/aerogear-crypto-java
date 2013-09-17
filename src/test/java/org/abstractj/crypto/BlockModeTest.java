@@ -1,6 +1,7 @@
 package org.abstractj.crypto;
 
 import org.junit.Test;
+
 import static org.abstractj.crypto.BlockCipher.Mode;
 import static org.junit.Assert.assertEquals;
 

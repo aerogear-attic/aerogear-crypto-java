@@ -16,8 +16,6 @@
 
 package org.abstractj.crypto;
 
-import java.util.Arrays;
-
 public class Util {
 
     public static byte[] checkLength(byte[] data, int size) {

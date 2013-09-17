@@ -29,7 +29,8 @@ public class BlockCipher {
         CryptoParty.loadProvider();
     }
 
-    private BlockCipher(){}
+    private BlockCipher() {
+    }
 
     public static AEADBlockCipher getInstance() {
         return getNewCipher(GCM);

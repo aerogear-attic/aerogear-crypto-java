@@ -46,7 +46,7 @@ public class Random {
         return buffer;
     }
 
-    public SecureRandom getSecureRandom(){
+    public SecureRandom getSecureRandom() {
         byte[] buffer = new byte[16];
         secureRandom.nextBytes(buffer);
         return secureRandom;

@@ -4,9 +4,9 @@ import org.abstractj.crypto.Random;
 import org.junit.Test;
 
 import static org.abstractj.fixture.TestVectors.INVALID_PASSWORD;
+import static org.abstractj.fixture.TestVectors.PASSWORD;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.abstractj.fixture.TestVectors.PASSWORD;
 
 public class Pbkdf2Test {
 

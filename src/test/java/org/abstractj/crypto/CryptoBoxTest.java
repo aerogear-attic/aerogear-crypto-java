@@ -23,12 +23,12 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.abstractj.encoders.Encoder.HEX;
-import static org.abstractj.encoders.Encoder.RAW;
-import static org.abstractj.fixture.TestVectors.*;
+import static org.abstractj.fixture.TestVectors.BOB_SECRET_KEY;
+import static org.abstractj.fixture.TestVectors.BOX_MESSAGE;
+import static org.abstractj.fixture.TestVectors.BOX_NONCE;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_IV;
 import static org.abstractj.fixture.TestVectors.CRYPTOBOX_MESSAGE;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -162,7 +162,7 @@ public class CryptoBoxTest {
     @Test(expected = RuntimeException.class)
     public void testNullPublicKey() throws Exception {
         KeyPair keyPair = new KeyPair();
-        new CryptoBox(keyPair.getPrivateKey(),null);
+        new CryptoBox(keyPair.getPrivateKey(), null);
         fail("Should raise an exception");
     }
 

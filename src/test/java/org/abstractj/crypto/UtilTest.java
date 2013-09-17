@@ -18,8 +18,8 @@ package org.abstractj.crypto;
 
 import org.junit.Test;
 
-import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
 import static org.abstractj.CryptoParty.MINIMUM_ITERATION;
+import static org.abstractj.CryptoParty.MINIMUM_SECRET_KEY_SIZE;
 import static org.abstractj.crypto.Util.checkLength;
 import static org.abstractj.crypto.Util.checkSize;
 import static org.junit.Assert.fail;
