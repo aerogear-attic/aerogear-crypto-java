@@ -42,7 +42,6 @@ public class PrivateKeyTest {
         }
     }
 
-
     @Test
     public void testCreateHexValidKey() throws Exception {
         try {
@@ -76,7 +75,6 @@ public class PrivateKeyTest {
         new PrivateKey(key);
         fail("Should reject short keys");
     }
-
 
     @Test
     public void testPrivateKeyToString() throws Exception {

@@ -35,7 +35,6 @@ public class CryptoParty {
     public static final int MINIMUM_SALT_LENGTH = 16;
     public static final int MINIMUM_ITERATION = 10000;
 
-
     //AES
     public static final int MINIMUM_SECRET_KEY_SIZE = 32;
 

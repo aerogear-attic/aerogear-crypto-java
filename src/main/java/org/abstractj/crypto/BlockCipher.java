@@ -36,17 +36,16 @@ public class BlockCipher {
         return getNewCipher(GCM);
     }
 
-
     public static AEADBlockCipher getNewCipher(Mode blockMode) {
 
         AESEngine aesEngine = new AESEngine();
 
         switch (blockMode) {
 
-            case GCM:
-                return new GCMBlockCipher(aesEngine);
-            default:
-                throw new RuntimeException("Block cipher not found");
+        case GCM:
+            return new GCMBlockCipher(aesEngine);
+        default:
+            throw new RuntimeException("Block cipher not found");
         }
     }
 

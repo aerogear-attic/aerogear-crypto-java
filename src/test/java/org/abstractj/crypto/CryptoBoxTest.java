@@ -170,7 +170,6 @@ public class CryptoBoxTest {
         byte[] expectedMessage = HEX.decode(BOX_MESSAGE);
         byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
 
-
         CryptoBox pandora = new CryptoBox(keyPairPandora.getPrivateKey(), keyPair.getPublicKey());
         byte[] message = pandora.decrypt(IV, ciphertext);
         assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
