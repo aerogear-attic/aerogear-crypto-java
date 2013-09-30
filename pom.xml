@@ -25,20 +25,16 @@
 
     <developers>
         <developer>
-            <id>abstractj</id>
-            <name>Bruno Oliveira</name>
-            <url>http://abstractj.org</url>
-            <email>bruno@abstractj.org</email>
-            <roles>
-                <role>Software Developer</role>
-            </roles>
+            <id>aerogear</id>
+            <name>AeroGear Team</name>
+            <email>aerogear-dev@lists.jboss.org</email>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:abstractj/cryptoparty.git</connection>
-        <developerConnection>scm:git:git@github.com:abstractj/cryptoparty.git</developerConnection>
-        <url>git@github.com:abstractj/cryptoparty.git</url>
+        <connection>scm:git:git://github.com/aerogear/aerogear-crypto-java.git</connection>
+        <developerConnection>scm:git:git@github.com:aerogear/aerogear-crypto-java.git</developerConnection>
+        <url>https://github.com/aerogear/aerogear-crypto-java.git</url>
         <tag>HEAD</tag>
     </scm>
 
