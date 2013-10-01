@@ -38,6 +38,7 @@ import static org.jboss.aerogear.crypto.Util.newByteArray;
 
 public class CryptoBox {
 
+    private static final String PROVIDER = Util.isJvm()?"BC":"SC";
     private byte[] key;
     private AEADBlockCipher cipher;
     private byte[] authData;
@@ -67,8 +68,8 @@ public class CryptoBox {
         MessageDigest hash = null;
         KeyAgreement keyAgree = null;
         try {
-            hash = MessageDigest.getInstance("SHA-256", "BC");
-            keyAgree = KeyAgreement.getInstance("ECDH", "BC");
+            hash = MessageDigest.getInstance("SHA-256", PROVIDER);
+            keyAgree = KeyAgreement.getInstance("ECDH", PROVIDER);
             keyAgree.init(privateKey);
             keyAgree.doPhase(publicKey, true);
         } catch (NoSuchAlgorithmException e) {
