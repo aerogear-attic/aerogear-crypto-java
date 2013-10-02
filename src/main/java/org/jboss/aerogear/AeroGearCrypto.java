@@ -19,12 +19,19 @@ package org.jboss.aerogear;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.Security;
+import org.jboss.aerogear.crypto.Util;
 
 public class AeroGearCrypto {
 
-    public static void loadProvider() {
-        if (Security.getProvider("BC") == null) {
-            Security.addProvider(new BouncyCastleProvider());
+    public static final String PROVIDER = Util.isAndroid() ? "SC" : "BC";
+
+    static {
+        if (Util.isAndroid()) {
+            Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
+        } else {
+            if (Security.getProvider("BC") == null) {
+                Security.addProvider(new BouncyCastleProvider());
+            }
         }
     }
 
