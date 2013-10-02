@@ -23,15 +23,15 @@ import org.jboss.aerogear.crypto.Util;
 
 public class AeroGearCrypto {
 
-    public static final String PROVIDER = Util.isJvm() ? "BC" : "SC";
+    public static final String PROVIDER = Util.isAndroid() ? "SC" : "BC";
 
     static {
-        if (Util.isJvm()) {
+        if (Util.isAndroid()) {
+            Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
+        } else {
             if (Security.getProvider("BC") == null) {
                 Security.addProvider(new BouncyCastleProvider());
             }
-        } else {
-            Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
         }
     }
 

@@ -18,17 +18,17 @@ package org.jboss.aerogear.crypto;
 
 public class Util {
 
-    private static final boolean IS_JVM;
+    private static final boolean IS_ANDROID;
 
     static {
         boolean check;
         try {
             Class.forName("android.app.Activity");
-            check = false;
-        } catch (ClassNotFoundException ignore) {
             check = true;
+        } catch (ClassNotFoundException ignore) {
+            check = false;
         }
-        IS_JVM = check;
+        IS_ANDROID = check;
     }
 
     public static byte[] checkLength(byte[] data, int size) {
@@ -61,8 +61,8 @@ public class Util {
         return buffer;
     }
 
-    public static boolean isJvm() {
-        return IS_JVM;
+    public static boolean isAndroid() {
+        return IS_ANDROID;
     }
 
 }
