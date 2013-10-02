@@ -29,8 +29,8 @@ import org.jboss.aerogear.crypto.Util;
 
 public class KeyPair {
 
-    private static final String PROVIDER = Util.isJvm()?"BC":"SC";
-    
+    private static final String PROVIDER = Util.isJvm() ? "BC" : "SC";
+
     private final java.security.KeyPair keyPair;
 
     static {
@@ -41,7 +41,7 @@ public class KeyPair {
 
         KeyPairGenerator keyGen = null;
         try {
-            keyGen = KeyPairGenerator.getInstance("ECDH", PROVIDER);            
+            keyGen = KeyPairGenerator.getInstance("ECDH", PROVIDER);
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
             keyGen.initialize(ecSpec, new SecureRandom());
         } catch (NoSuchAlgorithmException e) {

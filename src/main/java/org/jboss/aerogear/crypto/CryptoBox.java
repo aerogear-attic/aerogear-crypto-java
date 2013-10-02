@@ -38,7 +38,7 @@ import static org.jboss.aerogear.crypto.Util.newByteArray;
 
 public class CryptoBox {
 
-    private static final String PROVIDER = Util.isJvm()?"BC":"SC";
+    private static final String PROVIDER = Util.isJvm() ? "BC" : "SC";
     private byte[] key;
     private AEADBlockCipher cipher;
     private byte[] authData;

@@ -21,7 +21,7 @@ import java.security.Security;
 public class Util {
 
     private static final boolean IS_JVM;
-    
+
     static {
         boolean check;
         try {
@@ -32,7 +32,7 @@ public class Util {
         }
         IS_JVM = check;
     }
-    
+
     public static byte[] checkLength(byte[] data, int size) {
         if (data == null || data.length != size)
             throw new RuntimeException("Invalid length: " + data.length);
@@ -62,9 +62,9 @@ public class Util {
         System.arraycopy(data, 0, buffer, 0, data.length);
         return buffer;
     }
-    
+
     public static boolean isJvm() {
         return IS_JVM;
     }
-    
+
 }
