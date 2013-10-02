@@ -18,6 +18,19 @@ package org.jboss.aerogear.crypto;
 
 public class Util {
 
+    private static final boolean IS_ANDROID;
+
+    static {
+        boolean check;
+        try {
+            Class.forName("android.app.Activity");
+            check = true;
+        } catch (ClassNotFoundException ignore) {
+            check = false;
+        }
+        IS_ANDROID = check;
+    }
+
     public static byte[] checkLength(byte[] data, int size) {
         if (data == null || data.length != size)
             throw new RuntimeException("Invalid length: " + data.length);
@@ -47,4 +60,9 @@ public class Util {
         System.arraycopy(data, 0, buffer, 0, data.length);
         return buffer;
     }
+
+    public static boolean isAndroid() {
+        return IS_ANDROID;
+    }
+
 }

@@ -58,6 +58,13 @@
             <version>140</version>
             <scope>compile</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>com.madgag</groupId>
+            <artifactId>scprov-jdk15on</artifactId>
+            <version>1.47.0.3</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

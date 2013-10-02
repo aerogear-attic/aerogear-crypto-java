@@ -16,7 +16,6 @@
  */
 package org.jboss.aerogear.crypto;
 
-import org.jboss.aerogear.AeroGearCrypto;
 import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.modes.AEADBlockCipher;
 import org.bouncycastle.crypto.modes.GCMBlockCipher;
@@ -24,10 +23,6 @@ import org.bouncycastle.crypto.modes.GCMBlockCipher;
 import static org.jboss.aerogear.crypto.BlockCipher.Mode.GCM;
 
 public class BlockCipher {
-
-    static {
-        AeroGearCrypto.loadProvider();
-    }
 
     private BlockCipher() {
     }
@@ -55,7 +50,6 @@ public class BlockCipher {
 
     public enum Mode {
         GCM("GCM", Padding.NONE);
-
         private final Padding padding;
         private String mode;
 

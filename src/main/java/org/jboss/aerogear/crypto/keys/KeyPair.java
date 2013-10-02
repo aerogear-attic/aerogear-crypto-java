@@ -30,15 +30,11 @@ public class KeyPair {
 
     private final java.security.KeyPair keyPair;
 
-    static {
-        AeroGearCrypto.loadProvider();
-    }
-
     public KeyPair() {
 
         KeyPairGenerator keyGen = null;
         try {
-            keyGen = KeyPairGenerator.getInstance("ECDH", "BC");
+            keyGen = KeyPairGenerator.getInstance("ECDH", AeroGearCrypto.PROVIDER);
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
             keyGen.initialize(ecSpec, new SecureRandom());
         } catch (NoSuchAlgorithmException e) {

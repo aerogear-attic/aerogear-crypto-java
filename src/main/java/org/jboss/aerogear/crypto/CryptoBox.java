@@ -16,6 +16,7 @@
  */
 package org.jboss.aerogear.crypto;
 
+import org.jboss.aerogear.AeroGearCrypto;
 import org.jboss.aerogear.crypto.encoders.Encoder;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
 import org.bouncycastle.crypto.InvalidCipherTextException;
@@ -67,8 +68,8 @@ public class CryptoBox {
         MessageDigest hash = null;
         KeyAgreement keyAgree = null;
         try {
-            hash = MessageDigest.getInstance("SHA-256", "BC");
-            keyAgree = KeyAgreement.getInstance("ECDH", "BC");
+            hash = MessageDigest.getInstance("SHA-256", AeroGearCrypto.PROVIDER);
+            keyAgree = KeyAgreement.getInstance("ECDH", AeroGearCrypto.PROVIDER);
             keyAgree.init(privateKey);
             keyAgree.doPhase(publicKey, true);
         } catch (NoSuchAlgorithmException e) {
