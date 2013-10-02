@@ -23,7 +23,9 @@ import org.jboss.aerogear.crypto.Util;
 
 public class AeroGearCrypto {
 
-    public static void loadProvider() {
+    public static final String PROVIDER = Util.isJvm() ? "BC" : "SC";
+
+    static {
         if (Util.isJvm()) {
             if (Security.getProvider("BC") == null) {
                 Security.addProvider(new BouncyCastleProvider());
