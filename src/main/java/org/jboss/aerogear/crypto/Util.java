@@ -16,8 +16,6 @@
  */
 package org.jboss.aerogear.crypto;
 
-import java.security.Security;
-
 public class Util {
 
     private static final boolean IS_JVM;
