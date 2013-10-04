@@ -18,6 +18,7 @@ package org.jboss.aerogear;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jboss.aerogear.crypto.Util;
+import org.jboss.aerogear.crypto.password.DefaultPbkdf2;
 import org.jboss.aerogear.crypto.password.Pbkdf2;
 
 import javax.crypto.SecretKeyFactory;
@@ -53,7 +54,7 @@ public class AeroGearCrypto {
     public static Pbkdf2 pbkdf2() {
         try {
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
-            return new Pbkdf2(keyFactory);
+            return new DefaultPbkdf2(keyFactory);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }

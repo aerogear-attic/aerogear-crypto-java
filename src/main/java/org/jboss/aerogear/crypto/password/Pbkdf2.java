@@ -16,52 +16,14 @@
  */
 package org.jboss.aerogear.crypto.password;
 
-import org.jboss.aerogear.crypto.Random;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Arrays;
 
-import static org.jboss.aerogear.AeroGearCrypto.DERIVED_KEY_LENGTH;
-import static org.jboss.aerogear.AeroGearCrypto.ITERATIONS;
-import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_ITERATION;
-import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SALT_LENGTH;
-import static org.jboss.aerogear.crypto.Util.checkLength;
-import static org.jboss.aerogear.crypto.Util.checkSize;
+public interface Pbkdf2 {
+    byte[] encrypt(String password, byte[] salt, int iterations) throws InvalidKeySpecException;
 
-public class Pbkdf2 {
+    byte[] encrypt(String password, byte[] salt) throws InvalidKeySpecException;
 
-    private byte[] salt;
-    private SecretKeyFactory secretKeyFactory;
+    byte[] encrypt(String password) throws InvalidKeySpecException;
 
-    public Pbkdf2(SecretKeyFactory keyFactory) {
-        this.secretKeyFactory = keyFactory;
-    }
-
-    public byte[] encrypt(String password, byte[] salt, int iterations) throws InvalidKeySpecException {
-        this.salt = checkLength(salt, MINIMUM_SALT_LENGTH);
-        iterations = checkSize(iterations, MINIMUM_ITERATION);
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, DERIVED_KEY_LENGTH);
-        return secretKeyFactory.generateSecret(spec).getEncoded();
-    }
-
-    public byte[] encrypt(String password, byte[] salt) throws InvalidKeySpecException {
-        return encrypt(password, salt, ITERATIONS);
-    }
-
-    public byte[] encrypt(String password) throws InvalidKeySpecException {
-        byte[] salt = new Random().randomBytes();
-        return encrypt(password, salt);
-    }
-
-    public boolean validate(String password, byte[] encryptedPassword, byte[] salt) throws InvalidKeySpecException {
-        byte[] attempt = encrypt(password, salt);
-        return Arrays.equals(encryptedPassword, attempt);
-    }
-
-    public byte[] getSalt() {
-        return salt;
-    }
+    boolean validate(String password, byte[] encryptedPassword, byte[] salt) throws InvalidKeySpecException;
 }
