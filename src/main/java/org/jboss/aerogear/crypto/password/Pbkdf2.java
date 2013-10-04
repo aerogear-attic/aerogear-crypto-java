@@ -21,7 +21,6 @@ import org.jboss.aerogear.crypto.Random;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
@@ -30,7 +29,6 @@ import static org.jboss.aerogear.AeroGearCrypto.DERIVED_KEY_LENGTH;
 import static org.jboss.aerogear.AeroGearCrypto.ITERATIONS;
 import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_ITERATION;
 import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SALT_LENGTH;
-import static org.jboss.aerogear.AeroGearCrypto.PBKDF2_ALGORITHM;
 import static org.jboss.aerogear.crypto.Util.checkLength;
 import static org.jboss.aerogear.crypto.Util.checkSize;
 
@@ -39,20 +37,8 @@ public class Pbkdf2 {
     private byte[] salt;
     private SecretKeyFactory secretKeyFactory;
 
-    public Pbkdf2() {
-        try {
-            this.secretKeyFactory = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Pbkdf2(String algorithm) {
-        try {
-            this.secretKeyFactory = SecretKeyFactory.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+    public Pbkdf2(SecretKeyFactory keyFactory) {
+        this.secretKeyFactory = keyFactory;
     }
 
     public byte[] encrypt(String password, byte[] salt, int iterations) throws InvalidKeySpecException {
