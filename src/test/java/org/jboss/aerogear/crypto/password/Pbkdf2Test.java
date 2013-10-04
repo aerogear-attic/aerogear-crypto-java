@@ -39,7 +39,7 @@ public class Pbkdf2Test {
     public void testPasswordValidationWithSaltGenerated() throws Exception {
         Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
-        assertTrue("Password should be valid", pbkdf2.validate(PASSWORD, rawPassword, pbkdf2.getSalt()));
+        assertTrue("Password should be valid", pbkdf2.validate(PASSWORD, rawPassword, ((DefaultPbkdf2) pbkdf2).getSalt()));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class Pbkdf2Test {
     public void testInvalidPasswordValidationWithSaltGenerated() throws Exception {
         Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
-        assertFalse("Password should be valid", pbkdf2.validate(INVALID_PASSWORD, rawPassword, pbkdf2.getSalt()));
+        assertFalse("Password should be valid", pbkdf2.validate(INVALID_PASSWORD, rawPassword, ((DefaultPbkdf2) pbkdf2).getSalt()));
     }
 
     @Test(expected = RuntimeException.class)
