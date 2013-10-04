@@ -17,9 +17,12 @@
 package org.jboss.aerogear;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import java.security.Security;
 import org.jboss.aerogear.crypto.Util;
+import org.jboss.aerogear.crypto.password.Pbkdf2;
+
+import javax.crypto.SecretKeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 
 public class AeroGearCrypto {
 
@@ -41,11 +44,19 @@ public class AeroGearCrypto {
     public static final int ITERATIONS = 20000;
     public static final int MINIMUM_SALT_LENGTH = 16;
     public static final int MINIMUM_ITERATION = 10000;
-
     //AES
     public static final int MINIMUM_SECRET_KEY_SIZE = 32;
-
     //GCM
     public static final int IV_LENGTH = 96;
     public static final int TAG_LENGTH = 128;
+
+    public static Pbkdf2 pbkdf2() {
+        try {
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
+            return new Pbkdf2(keyFactory);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

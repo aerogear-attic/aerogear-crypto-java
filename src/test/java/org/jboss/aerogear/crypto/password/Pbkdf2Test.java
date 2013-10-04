@@ -16,6 +16,7 @@
  */
 package org.jboss.aerogear.crypto.password;
 
+import org.jboss.aerogear.AeroGearCrypto;
 import org.jboss.aerogear.crypto.Random;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ public class Pbkdf2Test {
 
     @Test
     public void testPasswordValidationWithRandomSaltProvided() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] salt = new Random().randomBytes();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD, salt);
         assertTrue("Password should be valid", pbkdf2.validate(PASSWORD, rawPassword, salt));
@@ -36,14 +37,14 @@ public class Pbkdf2Test {
 
     @Test
     public void testPasswordValidationWithSaltGenerated() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
         assertTrue("Password should be valid", pbkdf2.validate(PASSWORD, rawPassword, pbkdf2.getSalt()));
     }
 
     @Test
     public void testInvalidPasswordValidationWithRandomSaltProvided() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] salt = new Random().randomBytes();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD, salt);
         assertFalse("Password should be valid", pbkdf2.validate(INVALID_PASSWORD, rawPassword, salt));
@@ -51,21 +52,21 @@ public class Pbkdf2Test {
 
     @Test
     public void testInvalidPasswordValidationWithSaltGenerated() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
         assertFalse("Password should be valid", pbkdf2.validate(INVALID_PASSWORD, rawPassword, pbkdf2.getSalt()));
     }
 
     @Test(expected = RuntimeException.class)
     public void testThrowExceptionWithPoorSaltProvided() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] salt = "42".getBytes();
         pbkdf2.encrypt(PASSWORD, salt);
     }
 
     @Test(expected = RuntimeException.class)
     public void testThrowExceptionWithPoorIterationProvided() throws Exception {
-        Pbkdf2 pbkdf2 = new Pbkdf2();
+        Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
         byte[] salt = new Random().randomBytes();
         int iterations = 42;
         pbkdf2.encrypt(PASSWORD, salt, iterations);
