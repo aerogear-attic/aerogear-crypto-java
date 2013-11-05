@@ -16,12 +16,14 @@
  */
 package org.jboss.aerogear.crypto.keys;
 
+import org.jboss.aerogear.crypto.password.Pbkdf2;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
 import static org.jboss.aerogear.fixture.TestVectors.BOB_SECRET_KEY;
+import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -42,6 +44,18 @@ public class PrivateKeyTest {
         try {
             byte[] rawKey = HEX.decode(BOB_SECRET_KEY);
             new PrivateKey(rawKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Should return a valid key size");
+        }
+    }
+
+    @Test
+    public void testAcceptsPasswordBasedValidKey() throws Exception {
+        try {
+            Pbkdf2 pbkdf2 = new Pbkdf2();
+            byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
+            new PrivateKey(rawPassword);
         } catch (Exception e) {
             e.printStackTrace();
             fail("Should return a valid key size");

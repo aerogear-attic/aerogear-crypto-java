@@ -18,6 +18,7 @@ package org.jboss.aerogear.crypto;
 
 import org.jboss.aerogear.crypto.keys.KeyPair;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
+import org.jboss.aerogear.crypto.password.Pbkdf2;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import static org.jboss.aerogear.fixture.TestVectors.BOX_NONCE;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_IV;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_MESSAGE;
+import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -48,6 +50,17 @@ public class CryptoBoxTest {
     public void testAcceptPrivateKey() throws Exception {
         try {
             new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        } catch (Exception e) {
+            fail("CryptoBox should accept key pairs");
+        }
+    }
+
+    @Test
+    public void testAcceptPasswordBasedPrivateKey() throws Exception {
+        try {
+            Pbkdf2 pbkdf2 = new Pbkdf2();
+            byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
+            new CryptoBox(new PrivateKey(rawPassword));
         } catch (Exception e) {
             fail("CryptoBox should accept key pairs");
         }
@@ -85,6 +98,23 @@ public class CryptoBoxTest {
         byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
 
         CryptoBox pandora = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        byte[] message = pandora.decrypt(IV, ciphertext);
+        assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
+    }
+
+
+    @Test
+    public void testPasswordBasedKeyDecryptRawBytes() throws Exception {
+        Pbkdf2 pbkdf2 = new Pbkdf2();
+        byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
+        PrivateKey privateKey = new PrivateKey(rawPassword);
+
+        CryptoBox cryptoBox = new CryptoBox(privateKey);
+        byte[] IV = HEX.decode(CRYPTOBOX_IV);
+        byte[] expectedMessage = HEX.decode(CRYPTOBOX_MESSAGE);
+        byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
+
+        CryptoBox pandora = new CryptoBox(privateKey);
         byte[] message = pandora.decrypt(IV, ciphertext);
         assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
     }
