@@ -16,13 +16,13 @@
  */
 package org.jboss.aerogear.crypto;
 
-import org.jboss.aerogear.AeroGearCrypto;
-import org.jboss.aerogear.crypto.encoders.Encoder;
-import org.jboss.aerogear.crypto.keys.PrivateKey;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.modes.AEADBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.jboss.aerogear.AeroGearCrypto;
+import org.jboss.aerogear.crypto.encoders.Encoder;
+import org.jboss.aerogear.crypto.keys.PrivateKey;
 
 import javax.crypto.KeyAgreement;
 import java.security.InvalidKeyException;

@@ -16,7 +16,6 @@
  */
 package org.jboss.aerogear.crypto.password;
 
-import javax.crypto.SecretKey;
 import java.security.spec.InvalidKeySpecException;
 
 public interface Pbkdf2 {

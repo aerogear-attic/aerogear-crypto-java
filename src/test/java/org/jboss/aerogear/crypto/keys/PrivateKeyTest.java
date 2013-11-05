@@ -16,6 +16,7 @@
  */
 package org.jboss.aerogear.crypto.keys;
 
+import org.jboss.aerogear.AeroGearCrypto;
 import org.jboss.aerogear.crypto.password.Pbkdf2;
 import org.junit.Test;
 
@@ -53,7 +54,7 @@ public class PrivateKeyTest {
     @Test
     public void testAcceptsPasswordBasedValidKey() throws Exception {
         try {
-            Pbkdf2 pbkdf2 = new Pbkdf2();
+            Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
             byte[] rawPassword = pbkdf2.encrypt(PASSWORD);
             new PrivateKey(rawPassword);
         } catch (Exception e) {
