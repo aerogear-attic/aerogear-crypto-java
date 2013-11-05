@@ -18,6 +18,7 @@ package org.jboss.aerogear.crypto.password;
 
 import org.jboss.aerogear.crypto.Random;
 
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
