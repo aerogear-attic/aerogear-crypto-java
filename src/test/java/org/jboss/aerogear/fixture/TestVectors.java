@@ -48,5 +48,5 @@ public class TestVectors {
             "048977eb48f59ffd4924ca1c60902e52f0a089bc76897040e082f93776384864" +
             "5e0705";
     public static final String BOX_CIPHERTEXT = "fa11d3d36080df6f68d1201bf98d761886dc17003129b1a2ffa8fcb96292ed53f178b07dbd6b451a746f3ae1a47c194f0003b331ef9d0be1b81b49392870a26e4f8e3307e299d9ca23adc0f704559de9bd93e0e95d044829f2b0b2a2b830be0f82de4ea774341cc882c8a63b7914285323e19af6b862281597b14847b16dc840de8d8d2f7b526b5c4a0516d11c4bd5e4415b20";
-
+    public static final String BOX_STRING_MESSAGE = "Bacon ipsum dolor sit amet pastrami pork chop short loin corned beef hamburger ground round sirloin pig kielbasa brisket.";
 }
