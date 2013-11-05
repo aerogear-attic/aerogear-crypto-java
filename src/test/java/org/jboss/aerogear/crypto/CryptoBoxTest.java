@@ -17,6 +17,7 @@
 package org.jboss.aerogear.crypto;
 
 import org.jboss.aerogear.AeroGearCrypto;
+import org.jboss.aerogear.crypto.encoders.Encoder;
 import org.jboss.aerogear.crypto.keys.KeyPair;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
 import org.jboss.aerogear.crypto.password.Pbkdf2;
@@ -25,13 +26,16 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
+import static org.jboss.aerogear.crypto.encoders.Encoder.RAW;
 import static org.jboss.aerogear.fixture.TestVectors.BOB_SECRET_KEY;
 import static org.jboss.aerogear.fixture.TestVectors.BOX_MESSAGE;
 import static org.jboss.aerogear.fixture.TestVectors.BOX_NONCE;
+import static org.jboss.aerogear.fixture.TestVectors.BOX_STRING_MESSAGE;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_IV;
 import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_MESSAGE;
 import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -102,6 +106,17 @@ public class CryptoBoxTest {
         assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
     }
 
+
+    @Test
+    public void testEncrypAndDecryptString() {
+        CryptoBox cryptoBox = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        byte[] IV = HEX.decode(CRYPTOBOX_IV);
+        byte[] cipherText = cryptoBox.encrypt(IV, BOX_STRING_MESSAGE.getBytes());
+
+        CryptoBox pandora = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        byte[] message = pandora.decrypt(IV, cipherText);
+        assertEquals("decrypted message should equals the message", RAW.encode(message), BOX_STRING_MESSAGE);
+    }
 
     @Test
     public void testPasswordBasedKeyDecryptRawBytes() throws Exception {
