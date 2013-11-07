@@ -32,7 +32,7 @@ public class Util {
     }
 
     public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length != size)
+        if (data == null || data.length < size)
             throw new RuntimeException("Invalid length: " + data.length);
         return data;
     }
