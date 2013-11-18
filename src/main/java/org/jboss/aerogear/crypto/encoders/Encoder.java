@@ -18,6 +18,9 @@ package org.jboss.aerogear.crypto.encoders;
 
 import java.nio.charset.Charset;
 
+/**
+ * Provides a level of abstraction for encoding schemes
+ */
 public interface Encoder {
 
     public static final Charset CHARSET = Charset.forName("US-ASCII");
@@ -25,7 +28,17 @@ public interface Encoder {
     public static final Hex HEX = new Hex();
     public static final Raw RAW = new Raw();
 
+    /**
+     * Decode a provided string to bytes
+     * @param data to be decoded
+     * @return byte array with decoded data
+     */
     public byte[] decode(String data);
 
+    /**
+     * Encode the provided data to string
+     * @param data to be encoded
+     * @return string with encoded content
+     */
     public String encode(final byte[] data);
 }

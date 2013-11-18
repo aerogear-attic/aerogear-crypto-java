@@ -26,10 +26,16 @@ import static org.jboss.aerogear.crypto.Algorithm.AES;
 import static org.jboss.aerogear.crypto.Util.checkLength;
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
 
+/**
+ *  Represents the private key used for symmetric encryption
+ */
 public class PrivateKey {
 
     private byte[] secretKey;
 
+    /**
+     * Initialize and generate the private key with the default key size
+     */
     public PrivateKey() {
         KeyGenerator kGen;
         try {
@@ -42,25 +48,46 @@ public class PrivateKey {
         }
     }
 
+    /**
+     * Initializes the private key with the provided bytes
+     * @param keyBytes provided key
+     */
     public PrivateKey(byte[] keyBytes) {
         checkLength(keyBytes, MINIMUM_SECRET_KEY_SIZE);
         this.secretKey = keyBytes;
     }
 
+    /**
+     * Initializes the private key with the provided string
+     * @param secretKey provided key
+     */
     public PrivateKey(String secretKey) {
         this.secretKey = HEX.decode(secretKey);
         checkLength(this.secretKey, MINIMUM_SECRET_KEY_SIZE);
     }
 
+    /**
+     * Initializes the private key with the provided string and encoder
+     * @param secretKey provided key
+     * @param encoder provided encoder
+     */
     public PrivateKey(String secretKey, Encoder encoder) {
         checkLength(encoder.decode(secretKey), MINIMUM_SECRET_KEY_SIZE);
         this.secretKey = encoder.decode(secretKey);
     }
 
+    /**
+     * Retrieve the private key
+     * @return sequence of bytes representing the private key
+     */
     public byte[] toBytes() {
         return secretKey;
     }
 
+    /**
+     * Retrieve the hexadecimal representation of the key
+     * @return key encoded to hexadecimal by default
+     */
     @Override
     public String toString() {
         return HEX.encode(secretKey);
