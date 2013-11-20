@@ -26,10 +26,16 @@ import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 
+/**
+ * Represents a pair of cryptographic keys (a public and a private key) used for asymmetric encryption
+ */
 public class KeyPair {
 
     private final java.security.KeyPair keyPair;
 
+    /**
+     * Initialize the key pair with the standard curve name
+     */
     public KeyPair() {
 
         KeyPairGenerator keyGen = null;
@@ -49,10 +55,18 @@ public class KeyPair {
 
     }
 
+    /**
+     * Access to the public key
+     * @return the reference to the public key
+     */
     public java.security.PublicKey getPublicKey() {
         return keyPair.getPublic();
     }
 
+    /**
+     * Access to the private key
+     * @return the reference to the private key
+     */
     public PrivateKey getPrivateKey() {
         return keyPair.getPrivate();
     }

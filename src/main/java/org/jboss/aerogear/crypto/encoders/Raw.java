@@ -16,12 +16,26 @@
  */
 package org.jboss.aerogear.crypto.encoders;
 
+/**
+ * Converts raw Strings
+ */
 public class Raw implements Encoder {
 
+    /**
+     * Decode the provided string
+     * @param data to be decoded
+     * @return sequence of bytes
+     */
+    @Override
     public byte[] decode(final String data) {
         return data != null ? data.getBytes(CHARSET) : null;
     }
 
+    /**
+     * Encode the provided sequence of bytes
+     * @param data to be encoded
+     * @return string with the specified array of bytes decoded
+     */
     @Override
     public String encode(byte[] data) {
         return data != null ? new String(data, CHARSET) : null;

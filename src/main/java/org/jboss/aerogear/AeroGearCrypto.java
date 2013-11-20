@@ -25,6 +25,9 @@ import javax.crypto.SecretKeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
+/**
+ * Provides constants and static factories to be used inside the project
+ */
 public class AeroGearCrypto {
 
     public static final String PROVIDER = Util.isAndroid() ? "SC" : "BC";

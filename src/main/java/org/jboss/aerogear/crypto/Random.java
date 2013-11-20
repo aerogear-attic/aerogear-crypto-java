@@ -19,15 +19,25 @@ package org.jboss.aerogear.crypto;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/**
+ * Provides a cryptographically strong RNG
+ */
 public class Random {
 
     private SecureRandom secureRandom;
     private static final String ALGORITHM = "SHA1PRNG";
 
+    /**
+     * Initializes the class with the default algorithm supported
+     */
     public Random() {
         this(ALGORITHM);
     }
 
+    /**
+     * Initializes the class with the provided RNG algorithm name
+     * @param algorithm name provided
+     */
     public Random(String algorithm) {
         try {
             this.secureRandom = SecureRandom.getInstance(algorithm);
@@ -36,16 +46,28 @@ public class Random {
         }
     }
 
+    /**
+     * Generates a number random bytes which defaults to the buffer of 16
+     * @return byte array representation of random bytes
+     */
     public byte[] randomBytes() {
         return randomBytes(16);
     }
 
+    /**
+     * Generates a number random bytes specified by the user
+     * @return byte array representation of random bytes
+     */
     public byte[] randomBytes(int n) {
         byte[] buffer = new byte[n];
         secureRandom.nextBytes(buffer);
         return buffer;
     }
 
+    /**
+     * Retrieve the reference to the SecureRandom object
+     * @return SecureRandom
+     */
     public SecureRandom getSecureRandom() {
         byte[] buffer = new byte[16];
         secureRandom.nextBytes(buffer);

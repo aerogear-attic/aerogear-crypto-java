@@ -22,6 +22,9 @@ import org.bouncycastle.crypto.modes.GCMBlockCipher;
 
 import static org.jboss.aerogear.crypto.BlockCipher.Mode.GCM;
 
+/**
+ * Representation of the cipher modes supported
+ */
 public class BlockCipher {
 
     private BlockCipher() {
@@ -31,6 +34,11 @@ public class BlockCipher {
         return getNewCipher(GCM);
     }
 
+    /**
+     * Retrieve a new instance of the block mode provided
+     * @param blockMode block mode name
+     * @return instance to the block mode
+     */
     public static AEADBlockCipher getNewCipher(Mode blockMode) {
 
         AESEngine aesEngine = new AESEngine();
@@ -44,10 +52,17 @@ public class BlockCipher {
         }
     }
 
+    /**
+     * Generates a non-predictable initialization vector
+     * @return byte array with the initialization vector generated
+     */
     public static byte[] getIV() {
         return new Random().randomBytes();
     }
 
+    /**
+     * Block modes supported
+     */
     public enum Mode {
         GCM("GCM", Padding.NONE);
         private final Padding padding;
