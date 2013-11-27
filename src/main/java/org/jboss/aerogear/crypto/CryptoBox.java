@@ -38,7 +38,7 @@ import static org.jboss.aerogear.crypto.Util.newBuffer;
 import static org.jboss.aerogear.crypto.Util.newByteArray;
 
 /**
- * Class responsible for box and unbox crypto messages given the key
+ * Class responsible for box and unbox crypto messages with given key
  */
 public class CryptoBox {
 
@@ -48,6 +48,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the secret key
+     *
      * @param key byte array
      */
     public CryptoBox(byte[] key) {
@@ -59,6 +60,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the secret key
+     *
      * @param key reference to the PrivateKey
      */
     public CryptoBox(PrivateKey key) {
@@ -66,9 +68,10 @@ public class CryptoBox {
     }
 
     /**
-     * Initializes the box providing the secret key and encoder
-     * @param key
-     * @param encoder
+     * Initializes the box providing the secret key and the encoder
+     *
+     * @param key key to initialize the box with
+     * @param encoder encoder to initialize the box with
      */
     public CryptoBox(String key, Encoder encoder) {
         this(encoder.decode(key));
@@ -76,6 +79,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the key pair for asymmetric encryption
+     *
      * @param privateKey
      * @param publicKey
      */
@@ -106,6 +110,7 @@ public class CryptoBox {
 
     /**
      * Given the IV, encrypt the provided data
+     *
      * @param IV initialization vector
      * @param message data to be encrypted
      * @return byte array with the cipher text
@@ -114,9 +119,9 @@ public class CryptoBox {
     public byte[] encrypt(final byte[] IV, final byte[] message) throws RuntimeException {
 
         AEADParameters aeadParams = new AEADParameters(
-                new KeyParameter(key), TAG_LENGTH,
-                IV,
-                authData);
+            new KeyParameter(key), TAG_LENGTH,
+            IV,
+            authData);
 
         cipher.init(true, aeadParams);
         byte[] cipherText = newBuffer(cipher.getOutputSize(message.length));
@@ -133,6 +138,7 @@ public class CryptoBox {
 
     /**
      * Given the IV, encrypt and encode the provided data
+     *
      * @param IV initialization vector
      * @param message data to be encrypted
      * @param encoder encoder provided RAW or HEX
@@ -144,6 +150,7 @@ public class CryptoBox {
 
     /**
      * Given the IV, decrypt the provided data
+     *
      * @param IV initialization vector
      * @param cipherText data to be decrypted
      * @return byte array with the plain text
@@ -152,9 +159,9 @@ public class CryptoBox {
     public byte[] decrypt(byte[] IV, byte[] cipherText) throws RuntimeException {
 
         AEADParameters aeadParams = new AEADParameters(
-                new KeyParameter(key), TAG_LENGTH,
-                IV,
-                authData);
+            new KeyParameter(key), TAG_LENGTH,
+            IV,
+            authData);
 
         cipher.init(false, aeadParams);
         byte[] buffer = newByteArray(cipherText);
@@ -172,6 +179,7 @@ public class CryptoBox {
 
     /**
      * Given the IV, decrypt the provided data
+     *
      * @param IV initialization vector
      * @param cipherText data to be decrypted
      * @param encoder encoder provided RAW or HEX
@@ -181,7 +189,7 @@ public class CryptoBox {
         return decrypt(encoder.decode(IV), encoder.decode(cipherText));
     }
 
-    //TODO
+    // TODO
     public void updateAAD(byte[] authData) {
         this.authData = authData;
     }

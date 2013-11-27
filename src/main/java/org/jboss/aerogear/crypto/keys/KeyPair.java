@@ -57,6 +57,7 @@ public class KeyPair {
 
     /**
      * Access to the public key
+     *
      * @return the reference to the public key
      */
     public java.security.PublicKey getPublicKey() {
@@ -65,6 +66,7 @@ public class KeyPair {
 
     /**
      * Access to the private key
+     *
      * @return the reference to the private key
      */
     public PrivateKey getPrivateKey() {

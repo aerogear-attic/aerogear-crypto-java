@@ -28,7 +28,7 @@ public class Random {
     private static final String ALGORITHM = "SHA1PRNG";
 
     /**
-     * Initializes the class with the default algorithm supported
+     * Initializes the class with the default supported algorithm
      */
     public Random() {
         this(ALGORITHM);
@@ -36,6 +36,7 @@ public class Random {
 
     /**
      * Initializes the class with the provided RNG algorithm name
+     *
      * @param algorithm name provided
      */
     public Random(String algorithm) {
@@ -47,7 +48,8 @@ public class Random {
     }
 
     /**
-     * Generates a number random bytes which defaults to the buffer of 16
+     * Generates random bytes which defaults to the buffer of length 16
+     *
      * @return byte array representation of random bytes
      */
     public byte[] randomBytes() {
@@ -55,7 +57,8 @@ public class Random {
     }
 
     /**
-     * Generates a number random bytes specified by the user
+     * Generates an array of random bytes which length is specified by the user
+     *
      * @return byte array representation of random bytes
      */
     public byte[] randomBytes(int n) {
@@ -65,7 +68,8 @@ public class Random {
     }
 
     /**
-     * Retrieve the reference to the SecureRandom object
+     * Retrieves the reference to the {@link SecureRandom} object
+     *
      * @return SecureRandom
      */
     public SecureRandom getSecureRandom() {

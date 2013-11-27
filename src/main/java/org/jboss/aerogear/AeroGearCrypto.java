@@ -42,15 +42,17 @@ public class AeroGearCrypto {
         }
     }
 
-    //PBKDF2
+    // PBKDF2
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
     public static final int DERIVED_KEY_LENGTH = 256;
     public static final int ITERATIONS = 20000;
     public static final int MINIMUM_SALT_LENGTH = 16;
     public static final int MINIMUM_ITERATION = 10000;
-    //AES
+
+    // AES
     public static final int MINIMUM_SECRET_KEY_SIZE = 32;
-    //GCM
+
+    // GCM
     public static final int IV_LENGTH = 96;
     public static final int TAG_LENGTH = 128;
 

@@ -23,6 +23,7 @@ public class Raw implements Encoder {
 
     /**
      * Decode the provided string
+     *
      * @param data to be decoded
      * @return sequence of bytes
      */
@@ -33,6 +34,7 @@ public class Raw implements Encoder {
 
     /**
      * Encode the provided sequence of bytes
+     *
      * @param data to be encoded
      * @return string with the specified array of bytes decoded
      */
