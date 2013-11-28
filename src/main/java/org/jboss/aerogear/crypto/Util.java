@@ -42,10 +42,16 @@ public class Util {
      * @param data
      * @param size
      * @return data provided if valid
+     * @throws NullPointerException when {@code data} is a null object
+     * @throws RuntimeException when the length of {@code data} is smaller than {@code size}
      */
     public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length < size)
-            throw new RuntimeException("Invalid length: " + data.length);
+    	if (data == null) {
+    		throw new NullPointerException("Data to check the size of are null.");
+    	}
+    	if (data.length < size) {
+    		throw new RuntimeException("Invalid length: " + data.length);
+    	}
         return data;
     }
 

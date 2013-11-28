@@ -57,4 +57,9 @@ public class UtilTest {
     public void testIncorrectSize() throws Exception {
         checkSize(5000, MINIMUM_ITERATION);
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testSizeWhenNullDataPassed() {
+    	checkLength(null, 100);
+    }
 }
