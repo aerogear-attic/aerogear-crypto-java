@@ -23,7 +23,7 @@ import org.bouncycastle.crypto.modes.GCMBlockCipher;
 import static org.jboss.aerogear.crypto.BlockCipher.Mode.GCM;
 
 /**
- * Representation of the cipher modes supported
+ * Representation of the supported cipher modes
  */
 public class BlockCipher {
 
@@ -35,7 +35,8 @@ public class BlockCipher {
     }
 
     /**
-     * Retrieve a new instance of the block mode provided
+     * Retrieves a new instance of the provided block mode
+     *
      * @param blockMode block mode name
      * @return instance to the block mode
      */
@@ -45,16 +46,17 @@ public class BlockCipher {
 
         switch (blockMode) {
 
-        case GCM:
-            return new GCMBlockCipher(aesEngine);
-        default:
-            throw new RuntimeException("Block cipher not found");
+            case GCM:
+                return new GCMBlockCipher(aesEngine);
+            default:
+                throw new RuntimeException("Block cipher not found.");
         }
     }
 
     /**
      * Generates a non-predictable initialization vector
-     * @return byte array with the initialization vector generated
+     *
+     * @return byte array with the generated initialization vector
      */
     public static byte[] getIV() {
         return new Random().randomBytes();

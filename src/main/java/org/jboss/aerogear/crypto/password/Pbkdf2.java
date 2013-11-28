@@ -25,6 +25,7 @@ public interface Pbkdf2 {
 
     /**
      * Generate the secret key
+     *
      * @param password
      * @param salt
      * @param iterations
@@ -35,6 +36,7 @@ public interface Pbkdf2 {
 
     /**
      * Generate the secret key
+     *
      * @param password
      * @param salt
      * @return secret key
@@ -44,6 +46,7 @@ public interface Pbkdf2 {
 
     /**
      * Generate the secret key
+     *
      * @param password
      * @return secret key
      * @throws InvalidKeySpecException
@@ -52,6 +55,7 @@ public interface Pbkdf2 {
 
     /**
      * Validate the generated secret key
+     *
      * @param password
      * @param encryptedPassword
      * @param salt

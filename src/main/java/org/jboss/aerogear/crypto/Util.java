@@ -23,10 +23,12 @@ public class Util {
 
     private static final boolean IS_ANDROID;
 
+    private static final String ANDROID_ACTIVITY_CLASS_NAME = "android.app.Activity";
+
     static {
         boolean check;
         try {
-            Class.forName("android.app.Activity");
+            Class.forName(ANDROID_ACTIVITY_CLASS_NAME);
             check = true;
         } catch (ClassNotFoundException ignore) {
             check = false;
@@ -35,19 +37,27 @@ public class Util {
     }
 
     /**
-     * Validate the length of the data provided
+     * Validates the length of the provided data
+     *
      * @param data
      * @param size
      * @return data provided if valid
+     * @throws NullPointerException when {@code data} is a null object
+     * @throws RuntimeException when the length of {@code data} is smaller than {@code size}
      */
     public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length < size)
-            throw new RuntimeException("Invalid length: " + data.length);
+    	if (data == null) {
+    		throw new NullPointerException("Data to check the size of are null.");
+    	}
+    	if (data.length < size) {
+    		throw new RuntimeException("Invalid length: " + data.length);
+    	}
         return data;
     }
 
     /**
      * Validate the minimum size supported by the parameter
+     *
      * @param size
      * @param minimumSize
      * @return size provided if valid
@@ -60,6 +70,7 @@ public class Util {
 
     /**
      * Utility method to format algorithms name in Java like way
+     *
      * @param algorithm
      * @param mode
      * @return string name with the formatted algorithm
@@ -70,6 +81,7 @@ public class Util {
 
     /**
      * Utility method to format algorithms name in Java like way
+     *
      * @param mode
      * @param padding
      * @return string name with the formatted algorithm
@@ -80,6 +92,7 @@ public class Util {
 
     /**
      * Create a new buffer with the specified size
+     *
      * @param length
      * @return new empty byte array
      */
@@ -89,8 +102,9 @@ public class Util {
 
     /**
      * Copy the provided data
-     * @param data
-     * @return byte array
+     *
+     * @param data data to copy
+     * @return byte array of copied data
      */
     public static byte[] newByteArray(byte[] data) {
         byte[] buffer = new byte[data.length];
@@ -99,8 +113,9 @@ public class Util {
     }
 
     /**
-     * Verify if the platform is running Android
-     * @return if the platform is supported
+     * Verify if the platform is running on Android
+     *
+     * @return true if the platform is Android, false otherwise
      */
     public static boolean isAndroid() {
         return IS_ANDROID;

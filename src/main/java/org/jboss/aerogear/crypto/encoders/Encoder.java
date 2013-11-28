@@ -30,6 +30,7 @@ public interface Encoder {
 
     /**
      * Decode a provided string to bytes
+     * 
      * @param data to be decoded
      * @return byte array with decoded data
      */
@@ -37,6 +38,7 @@ public interface Encoder {
 
     /**
      * Encode the provided data to string
+     * 
      * @param data to be encoded
      * @return string with encoded content
      */

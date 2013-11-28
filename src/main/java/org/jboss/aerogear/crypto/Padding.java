@@ -17,7 +17,7 @@
 package org.jboss.aerogear.crypto;
 
 /**
- * Padding schemes supported
+ * Supported padding schemes
  */
 public enum Padding {
 

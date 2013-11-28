@@ -21,7 +21,7 @@ package org.jboss.aerogear.crypto.encoders;
  * <p/>
  * This class is thread-safe.
  * <p/>
- * This class contains code from the Apache Common-Codec project    
+ * This class contains code from the Apache Common-Codec project
  */
 public class Hex implements Encoder {
 

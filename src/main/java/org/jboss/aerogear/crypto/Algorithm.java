@@ -17,7 +17,7 @@
 package org.jboss.aerogear.crypto;
 
 /**
- * Representation of the algorithms supported
+ * Representation of the supported algorithms
  */
 public enum Algorithm {
 
@@ -32,7 +32,8 @@ public enum Algorithm {
     }
 
     /**
-     * Algorithm name
+     * Name of the algorithm
+     * 
      * @return string representation of the algorithm name
      */
     @Override
@@ -41,7 +42,8 @@ public enum Algorithm {
     }
 
     /**
-     * Key size
+     * Size of the key
+     * 
      * @return integer representation of the key size
      */
     public int getKeySize() {
