@@ -32,6 +32,9 @@ public class AeroGearCrypto {
 
     public static final String PROVIDER = Util.isAndroid() ? "SC" : "BC";
 
+    private AeroGearCrypto() {
+    }
+
     static {
         if (Util.isAndroid()) {
             Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
