@@ -23,10 +23,12 @@ public class Util {
 
     private static final boolean IS_ANDROID;
 
+    private static final String ANDROID_ACTIVITY_CLASS = "android.app.Activity";
+
     static {
         boolean check;
         try {
-            Class.forName("android.app.Activity");
+            Class.forName(ANDROID_ACTIVITY_CLASS);
             check = true;
         } catch (ClassNotFoundException ignore) {
             check = false;
