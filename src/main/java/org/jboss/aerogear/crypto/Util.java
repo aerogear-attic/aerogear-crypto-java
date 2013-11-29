@@ -97,6 +97,9 @@ public class Util {
      * @return byte array
      */
     public static byte[] newByteArray(byte[] data) {
+        if (data == null) {
+            throw new NullPointerException("Data you want to copy are backed by null object.");
+        }
         byte[] buffer = new byte[data.length];
         System.arraycopy(data, 0, buffer, 0, data.length);
         return buffer;

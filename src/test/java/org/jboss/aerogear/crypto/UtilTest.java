@@ -22,6 +22,7 @@ import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_ITERATION;
 import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SECRET_KEY_SIZE;
 import static org.jboss.aerogear.crypto.Util.checkLength;
 import static org.jboss.aerogear.crypto.Util.checkSize;
+import static org.jboss.aerogear.crypto.Util.newByteArray;
 import static org.junit.Assert.fail;
 
 public class UtilTest {
@@ -61,6 +62,11 @@ public class UtilTest {
     @Test(expected = NullPointerException.class)
     public void testSizeWhenNullDataPassed() {
         checkLength(null, 100);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNewByteArrayWhenNullPassed() {
+        newByteArray(null);
     }
 
 }
