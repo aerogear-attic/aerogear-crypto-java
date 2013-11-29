@@ -41,8 +41,12 @@ public class Util {
      * @return data provided if valid
      */
     public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length < size)
+        if (data == null) {
+            throw new NullPointerException("Data to check the length of are null.");
+        }
+        if (data.length < size) {
             throw new RuntimeException("Invalid length: " + data.length);
+        }
         return data;
     }
 
