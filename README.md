@@ -13,7 +13,7 @@ A Java API to provide an easy to use cryptography interface for developers built
 
 ### Android
 
-The android platform unfortunately ships a incomplete and outdated version of [Bouncy Castle for Android](https://code.google.com/p/android/issues/detail?id=3280) which also makes hard to install an updated version of the library. That said, we had to stick with [Spongy Castle](http://rtyley.github.io/spongycastle/), a version of [Bouncy Castle](http://www.bouncycastle.org) repackaged to make it work on Android.
+The Android platform unfortunately ships an incomplete and outdated version of [Bouncy Castle for Android](https://code.google.com/p/android/issues/detail?id=3280) which also makes hard to install an updated version of the library. That said, we had to stick with [Spongy Castle](http://rtyley.github.io/spongycastle/), a version of [Bouncy Castle](http://www.bouncycastle.org) repackaged to make it work on Android.
 
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
@@ -29,7 +29,7 @@ The android platform unfortunately ships a incomplete and outdated version of [B
 
 ### Regular Java projects
 
-For regular JEE and JSE projects [Bouncy Castle](http://www.bouncycastle.org) will be supported and there is no need to workaround it. 
+For regular Java EE and Java SE projects, [Bouncy Castle](http://www.bouncycastle.org) will be supported and there is no need to workaround it.
 
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
@@ -45,7 +45,7 @@ For regular JEE and JSE projects [Bouncy Castle](http://www.bouncycastle.org) wi
 
 ## Getting started
 
-AeroGear Crypto does not reinvent the wheel writing encryption algorithms or creating protocols, we still have some sanity. The major goal of this project is to provide simple API interfaces for uber complicated parameters, so let's get started.
+AeroGear Crypto does not reinvent the wheel by writing encryption algorithms or creating protocols, we still have some sanity. The major goal of this project is to provide simple API interfaces for uber complicated parameters, so let's get started.
 
 ### Password based key derivation
 
@@ -86,4 +86,4 @@ AeroGear Crypto does not reinvent the wheel writing encryption algorithms or cre
     byte[] message = pandora.decrypt(IV, ciphertext);
     
     
-We are big believers that there's too much to improve, for this reason you are more than welcome to file a [JIRA](https://issues.jboss.org/browse/AGSEC) if you find any issue or discuss the improvements on the [mailing list](http://aerogear-dev.1069024.n5.nabble.com). Security is not an island and it's our responsibility like developers to make it better.
+We are big believers that there is too much to improve, for this reason you are more than welcome to file a [JIRA](https://issues.jboss.org/browse/AGSEC) if you find any issue or discuss the improvements on the [mailing list](http://aerogear-dev.1069024.n5.nabble.com). Security is not an island and it is our responsibility like developers to make it better.
