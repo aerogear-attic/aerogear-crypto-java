@@ -18,6 +18,7 @@ package org.jboss.aerogear.crypto.password;
 
 import org.jboss.aerogear.crypto.Random;
 
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.spec.InvalidKeySpecException;
@@ -49,6 +50,14 @@ public class DefaultPbkdf2 implements Pbkdf2 {
     }
 
     @Override
+    public SecretKey generateSecretKey(String password, byte[] salt, int iterations) throws InvalidKeySpecException {
+        this.salt = checkLength(salt, MINIMUM_SALT_LENGTH);
+        iterations = checkSize(iterations, MINIMUM_ITERATION);
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, DERIVED_KEY_LENGTH);
+        return secretKeyFactory.generateSecret(spec);
+    }
+
+    @Override
     public byte[] encrypt(String password, byte[] salt) throws InvalidKeySpecException {
         return encrypt(password, salt, ITERATIONS);
     }
@@ -57,6 +66,12 @@ public class DefaultPbkdf2 implements Pbkdf2 {
     public byte[] encrypt(String password) throws InvalidKeySpecException {
         byte[] salt = new Random().randomBytes();
         return encrypt(password, salt);
+    }
+
+    @Override
+    public SecretKey generateSecretKey(String password) throws InvalidKeySpecException {
+        byte[] salt = new Random().randomBytes();
+        return generateSecretKey(password, salt, ITERATIONS);
     }
 
     @Override
