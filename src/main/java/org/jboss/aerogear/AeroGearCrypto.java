@@ -51,7 +51,6 @@ public class AeroGearCrypto {
     //AES
     public static final int MINIMUM_SECRET_KEY_SIZE = 32;
     //GCM
-    public static final int IV_LENGTH = 96;
     public static final int TAG_LENGTH = 128;
 
     public static Pbkdf2 pbkdf2() {
