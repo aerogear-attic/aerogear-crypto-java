@@ -44,10 +44,10 @@ public class Util {
      */
     public static byte[] checkLength(byte[] data, int size) {
         if (data == null) {
-            throw new NullPointerException("Data to check the length of are null.");
+            throw new IllegalArgumentException("Data to check the length of are null.");
         }
         if (data.length < size) {
-            throw new RuntimeException("Invalid length: " + data.length);
+            throw new IllegalArgumentException("Invalid length: " + data.length);
         }
         return data;
     }
@@ -100,7 +100,7 @@ public class Util {
      */
     public static byte[] newByteArray(byte[] data) {
         if (data == null) {
-            throw new NullPointerException("Data you want to copy are backed by null object.");
+            throw new IllegalArgumentException("Data you want to copy are backed by null object.");
         }
         byte[] buffer = new byte[data.length];
         System.arraycopy(data, 0, buffer, 0, data.length);

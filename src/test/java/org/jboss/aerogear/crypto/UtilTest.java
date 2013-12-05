@@ -59,12 +59,12 @@ public class UtilTest {
         checkSize(5000, MINIMUM_ITERATION);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSizeWhenNullDataPassed() {
         checkLength(null, 100);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNewByteArrayWhenNullPassed() {
         newByteArray(null);
     }
