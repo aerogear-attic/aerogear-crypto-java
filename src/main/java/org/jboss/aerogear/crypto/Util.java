@@ -23,10 +23,12 @@ public class Util {
 
     private static final boolean IS_ANDROID;
 
+    private static final String ANDROID_ACTIVITY_CLASS = "android.app.Activity";
+
     static {
         boolean check;
         try {
-            Class.forName("android.app.Activity");
+            Class.forName(ANDROID_ACTIVITY_CLASS);
             check = true;
         } catch (ClassNotFoundException ignore) {
             check = false;
@@ -41,8 +43,12 @@ public class Util {
      * @return data provided if valid
      */
     public static byte[] checkLength(byte[] data, int size) {
-        if (data == null || data.length < size)
-            throw new RuntimeException("Invalid length: " + data.length);
+        if (data == null) {
+            throw new IllegalArgumentException("Data to check the length of are null.");
+        }
+        if (data.length < size) {
+            throw new IllegalArgumentException("Invalid length: " + data.length);
+        }
         return data;
     }
 
@@ -93,6 +99,9 @@ public class Util {
      * @return byte array
      */
     public static byte[] newByteArray(byte[] data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Data you want to copy are backed by null object.");
+        }
         byte[] buffer = new byte[data.length];
         System.arraycopy(data, 0, buffer, 0, data.length);
         return buffer;

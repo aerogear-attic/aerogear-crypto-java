@@ -17,7 +17,6 @@
 package org.jboss.aerogear.crypto;
 
 import org.jboss.aerogear.AeroGearCrypto;
-import org.jboss.aerogear.crypto.encoders.Encoder;
 import org.jboss.aerogear.crypto.keys.KeyPair;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
 import org.jboss.aerogear.crypto.password.Pbkdf2;
