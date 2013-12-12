@@ -49,4 +49,11 @@ public class TestVectors {
             "5e0705";
     public static final String BOX_CIPHERTEXT = "fa11d3d36080df6f68d1201bf98d761886dc17003129b1a2ffa8fcb96292ed53f178b07dbd6b451a746f3ae1a47c194f0003b331ef9d0be1b81b49392870a26e4f8e3307e299d9ca23adc0f704559de9bd93e0e95d044829f2b0b2a2b830be0f82de4ea774341cc882c8a63b7914285323e19af6b862281597b14847b16dc840de8d8d2f7b526b5c4a0516d11c4bd5e4415b20";
     public static final String BOX_STRING_MESSAGE = "Bacon ipsum dolor sit amet pastrami pork chop short loin corned beef hamburger ground round sirloin pig kielbasa brisket.";
+
+    //Keep in mind that the SALT is hard coded only for unit tests purposes
+    public static final String HMAC_STRING_SALT = "Sweet home Alabama";
+    public static final String HMAC_STRING_MESSAGE = "Where the skies are so blue";
+    public static final String HMAC_STRING_DIGEST_SHA1 = "H7c79yzIWorc9C7HZSlPmCetHg8=";
+    public static final String HMAC_STRING_DIGEST_SHA256 = "MJiEUwAbeTb2VzLdCAYkbQiVMi0DoW/ZC56MAIer6aw=";
+    public static final String HMAC_STRING_DIGEST_SHA512 = "/x5fedlzTfCXgK/q5k9d1BkEl0roF5g1wy7+qYS5zW51pS33WGMXeivZGMi4E3p9rQwXLwtzXban78SRHP7rvA==";
 }

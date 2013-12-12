@@ -66,6 +66,10 @@ public class AeroGearCrypto {
     public static final int MINIMUM_SECRET_KEY_SIZE = 32;
     //GCM
     public static final int TAG_LENGTH = 128;
+    //HMAC
+    public static final String HMAC_ALGORITHM = "HmacSHA256";
+
+
 
     public static Pbkdf2 pbkdf2() {
         try {
