@@ -18,7 +18,7 @@ package org.jboss.aerogear.crypto;
 
 import org.junit.Test;
 
-import static org.jboss.aerogear.crypto.Algorithm.AES;
+import static org.jboss.aerogear.AeroGearCrypto.Algorithm.*;
 import static org.junit.Assert.assertEquals;
 
 public class AlgorithmTest {

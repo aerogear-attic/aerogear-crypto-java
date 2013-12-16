@@ -18,7 +18,7 @@ package org.jboss.aerogear.crypto;
 
 import org.junit.Test;
 
-import static org.jboss.aerogear.crypto.BlockCipher.Mode;
+import static org.jboss.aerogear.AeroGearCrypto.Mode;
 import static org.junit.Assert.assertEquals;
 
 public class BlockModeTest {

@@ -21,13 +21,13 @@ import org.jboss.aerogear.crypto.encoders.Encoder;
 import javax.crypto.KeyGenerator;
 import java.security.NoSuchAlgorithmException;
 
+import static org.jboss.aerogear.AeroGearCrypto.Algorithm.AES;
 import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SECRET_KEY_SIZE;
-import static org.jboss.aerogear.crypto.Algorithm.AES;
 import static org.jboss.aerogear.crypto.Util.checkLength;
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
 
 /**
- *  Represents the private key used for symmetric encryption
+ * Represents the private key used for symmetric encryption
  */
 public class PrivateKey {
 
@@ -50,6 +50,7 @@ public class PrivateKey {
 
     /**
      * Initializes the private key with the provided bytes
+     *
      * @param keyBytes provided key
      */
     public PrivateKey(byte[] keyBytes) {
@@ -59,6 +60,7 @@ public class PrivateKey {
 
     /**
      * Initializes the private key with the provided string
+     *
      * @param secretKey provided key
      */
     public PrivateKey(String secretKey) {
@@ -68,8 +70,9 @@ public class PrivateKey {
 
     /**
      * Initializes the private key with the provided string and encoder
+     *
      * @param secretKey provided key
-     * @param encoder provided encoder
+     * @param encoder   provided encoder
      */
     public PrivateKey(String secretKey, Encoder encoder) {
         checkLength(encoder.decode(secretKey), MINIMUM_SECRET_KEY_SIZE);
@@ -78,6 +81,7 @@ public class PrivateKey {
 
     /**
      * Retrieve the private key
+     *
      * @return sequence of bytes representing the private key
      */
     public byte[] toBytes() {
@@ -86,6 +90,7 @@ public class PrivateKey {
 
     /**
      * Retrieve the hexadecimal representation of the key
+     *
      * @return key encoded to hexadecimal by default
      */
     @Override

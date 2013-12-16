@@ -20,7 +20,8 @@ import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.modes.AEADBlockCipher;
 import org.bouncycastle.crypto.modes.GCMBlockCipher;
 
-import static org.jboss.aerogear.crypto.BlockCipher.Mode.GCM;
+import static org.jboss.aerogear.AeroGearCrypto.Mode;
+import static org.jboss.aerogear.AeroGearCrypto.Mode.GCM;
 
 /**
  * Representation of the cipher modes supported
@@ -60,22 +61,4 @@ public class BlockCipher {
         return new Random().randomBytes();
     }
 
-    /**
-     * Block modes supported
-     */
-    public enum Mode {
-        GCM("GCM", Padding.NONE);
-        private final Padding padding;
-        private String mode;
-
-        private Mode(String mode, Padding padding) {
-            this.mode = mode;
-            this.padding = padding;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s/%s", mode, padding);
-        }
-    }
 }

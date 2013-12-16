@@ -16,6 +16,10 @@
  */
 package org.jboss.aerogear.crypto;
 
+import static org.jboss.aerogear.AeroGearCrypto.Algorithm;
+import static org.jboss.aerogear.AeroGearCrypto.Mode;
+import static org.jboss.aerogear.AeroGearCrypto.Padding;
+
 /**
  * Utility class for platform validation and cryptographic operations
  */
@@ -38,6 +42,7 @@ public class Util {
 
     /**
      * Validate the length of the data provided
+     *
      * @param data
      * @param size
      * @return data provided if valid
@@ -54,6 +59,7 @@ public class Util {
 
     /**
      * Validate the minimum size supported by the parameter
+     *
      * @param size
      * @param minimumSize
      * @return size provided if valid
@@ -66,26 +72,29 @@ public class Util {
 
     /**
      * Utility method to format algorithms name in Java like way
+     *
      * @param algorithm
      * @param mode
      * @return string name with the formatted algorithm
      */
-    public static String formatter(Algorithm algorithm, BlockCipher.Mode mode) {
+    public static String formatter(Algorithm algorithm, Mode mode) {
         return String.format("%s/%s", algorithm, mode);
     }
 
     /**
      * Utility method to format algorithms name in Java like way
+     *
      * @param mode
      * @param padding
      * @return string name with the formatted algorithm
      */
-    public static String formatter(BlockCipher.Mode mode, Padding padding) {
+    public static String formatter(Mode mode, Padding padding) {
         return String.format("%s/%s", mode, padding);
     }
 
     /**
      * Create a new buffer with the specified size
+     *
      * @param length
      * @return new empty byte array
      */
@@ -95,6 +104,7 @@ public class Util {
 
     /**
      * Copy the provided data
+     *
      * @param data
      * @return byte array
      */
@@ -109,6 +119,7 @@ public class Util {
 
     /**
      * Verify if the platform is running Android
+     *
      * @return if the platform is supported
      */
     public static boolean isAndroid() {

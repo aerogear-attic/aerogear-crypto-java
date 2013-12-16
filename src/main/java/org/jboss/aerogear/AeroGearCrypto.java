@@ -80,4 +80,79 @@ public class AeroGearCrypto {
         }
     }
 
+
+    /**
+     * Representation of the algorithms supported
+     */
+    public enum Algorithm {
+
+        AES("AES", 256);
+
+        private final String name;
+        private final int keySize;
+
+        Algorithm(String name, int keySize) {
+            this.name = name;
+            this.keySize = keySize;
+        }
+
+        /**
+         * Algorithm name
+         *
+         * @return string representation of the algorithm name
+         */
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        /**
+         * Key size
+         *
+         * @return integer representation of the key size
+         */
+        public int getKeySize() {
+            return keySize;
+        }
+    }
+
+    /**
+     * Padding schemes supported
+     */
+    public enum Padding {
+
+        NONE("NoPadding"),
+        PKCS7("PKCS7Padding");
+
+        private final String padding;
+
+        Padding(String padding) {
+            this.padding = padding;
+        }
+
+        @Override
+        public String toString() {
+            return padding;
+        }
+    }
+
+    /**
+     * Block modes supported
+     */
+    public enum Mode {
+        GCM("GCM", Padding.NONE);
+        private final Padding padding;
+        private String mode;
+
+        private Mode(String mode, Padding padding) {
+            this.mode = mode;
+            this.padding = padding;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s/%s", mode, padding);
+        }
+    }
+
 }
