@@ -68,7 +68,16 @@ public class AeroGearCrypto {
     public static final int TAG_LENGTH = 128;
     //HMAC
     public static final String HMAC_ALGORITHM = "HmacSHA256";
-
+    //ECDH
+    public static final String ECDH_ALGORITHM_NAME = "ECDH";
+    //ECDSA
+    public static final String ECDSA_ALGORITHM_NAME = "ECDSA";
+    //Default Curve Name
+    public static final String DEFAULT_CURVE_NAME = "P-256";
+    //ECDSA SHA
+    public static final String DEFAULT_ECDSA_SHA = "SHA256withECDSA";
+    //Default SHA
+    public static final String DEFAULT_SHA_ALGORITHM = "SHA-256";
 
 
     public static Pbkdf2 pbkdf2() {
@@ -88,8 +97,8 @@ public class AeroGearCrypto {
 
         AES("AES", 256);
 
-        private final String name;
-        private final int keySize;
+        private String name;
+        private int keySize;
 
         Algorithm(String name, int keySize) {
             this.name = name;
@@ -114,6 +123,7 @@ public class AeroGearCrypto {
         public int getKeySize() {
             return keySize;
         }
+
     }
 
     /**
