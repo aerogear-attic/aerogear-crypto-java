@@ -18,8 +18,8 @@ package org.jboss.aerogear.crypto;
 
 import org.junit.Test;
 
-import static org.jboss.aerogear.crypto.Padding.NONE;
-import static org.jboss.aerogear.crypto.Padding.PKCS7;
+import static org.jboss.aerogear.AeroGearCrypto.Padding.NONE;
+import static org.jboss.aerogear.AeroGearCrypto.Padding.PKCS7;
 import static org.junit.Assert.assertEquals;
 
 public class PaddingTest {
