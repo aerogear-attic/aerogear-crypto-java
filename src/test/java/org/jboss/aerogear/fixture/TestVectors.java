@@ -56,4 +56,13 @@ public class TestVectors {
     public static final String HMAC_STRING_DIGEST_SHA1 = "H7c79yzIWorc9C7HZSlPmCetHg8=";
     public static final String HMAC_STRING_DIGEST_SHA256 = "MJiEUwAbeTb2VzLdCAYkbQiVMi0DoW/ZC56MAIer6aw=";
     public static final String HMAC_STRING_DIGEST_SHA512 = "/x5fedlzTfCXgK/q5k9d1BkEl0roF5g1wy7+qYS5zW51pS33WGMXeivZGMi4E3p9rQwXLwtzXban78SRHP7rvA==";
+
+    //Test vectors for digital signatures
+    public static final String SIGN_MESSAGE = "916c7d1d268fc0e77c1bef238432573c39be577bbea0998936add2b50a653171" +
+            "ce18a542b0b7f96c1691a3be6031522894a8634183eda38798a0c5d5d79fbd01" +
+            "dd04a8646d71873b77b221998a81922d8105f892316369d5224c9983372d2313" +
+            "c6b1f4556ea26ba49d46e8b561e0fc76633ac9766e68e21fba7edca93c4c7460" +
+            "376d7f3ac22ff372c18f613f2ae2e856af40";
+    public static final String SIGN_SIGNATURE = "6bd710a368c1249923fc7a1610747403040f0cc30815a00f9ff548a896bbda0b" +
+            "4eb2ca19ebcf917f0f34200a9edbad3901b64ab09cc5ef7b9bcc3c40c0ff7509";
 }
