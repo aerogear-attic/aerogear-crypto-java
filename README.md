@@ -2,7 +2,7 @@
 
 # AeroGear Crypto Java
 
-A Java API to provide an easy to use cryptography interface for developers built on top of [javax.crypto](http://docs.oracle.com/javase/7/docs/api/javax/crypto/package-summary.html) and [Bouncy Castle](http://www.bouncycastle.org) to support: [AES-GCM authenticated encryption](http://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf), [password based key derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf) and [elliptic curve cryptography](http://www.nsa.gov/business/programs/elliptic_curve.shtml).
+A Java API to provide an easy way to use cryptography interfaces for developers built on top of [javax.crypto](http://docs.oracle.com/javase/7/docs/api/javax/crypto/package-summary.html) and [Bouncy Castle](http://www.bouncycastle.org) to support: [AES-GCM authenticated encryption](http://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf), [password based key derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf) and [elliptic curve cryptography](http://www.nsa.gov/business/programs/elliptic_curve.shtml).
 
 ## Requirements
 
@@ -18,7 +18,7 @@ The Android platform unfortunately ships an incomplete and outdated version of [
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -34,7 +34,7 @@ For regular Java EE and Java SE projects, [Bouncy Castle](http://www.bouncycastl
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
     </dependency>
     
     <dependency>
