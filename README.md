@@ -18,7 +18,7 @@ The Android platform unfortunately ships an incomplete and outdated version of [
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.1.1</version>
     </dependency>
 
     <dependency>
@@ -34,7 +34,7 @@ For regular Java EE and Java SE projects, [Bouncy Castle](http://www.bouncycastl
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.1.1</version>
     </dependency>
     
     <dependency>
