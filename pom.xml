@@ -4,7 +4,7 @@
 
     <groupId>org.jboss.aerogear</groupId>
     <artifactId>aerogear-crypto</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -33,7 +33,7 @@
         <connection>scm:git:git://github.com/aerogear/aerogear-crypto-java.git</connection>
         <developerConnection>scm:git:git@github.com:aerogear/aerogear-crypto-java.git</developerConnection>
         <url>https://github.com/aerogear/aerogear-crypto-java.git</url>
-        <tag>0.1.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
