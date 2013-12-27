@@ -35,12 +35,6 @@ public class TestVectors {
             "b20800f9a7c1ef6a4379df67a9873ec696e0ca484861a70de22254fe3790f02b39746fb1f6a47d95294fdfc3e55ff3a38a855" +
             "c1572e518ad0a036b7c75f7e894858562992";
 
-    public static final String BOB_PRIVATE_KEY = "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb";
-    public static final String BOB_PUBLIC_KEY = "de9edb7d7b7dc1b4d35b61c2ece435373f8343c85b78674dadfc7e146f882b4f";
-
-    public static final String ALICE_PRIVATE_KEY = "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a";
-    public static final String ALICE_PUBLIC_KEY = "8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a";
-
     public static final String BOX_NONCE = "69696ee955b62b73cd62bda875fc73d68219e0036b7a0b37";
     public static final String BOX_MESSAGE = "be075fc53c81f2d5cf141316ebeb0c7b5228c52a4c62cbd44b66849b64244ffc" +
             "e5ecbaaf33bd751a1ac728d45e6c61296cdc3c01233561f41db66cce314adb31" +
@@ -56,4 +50,11 @@ public class TestVectors {
     public static final String HMAC_STRING_DIGEST_SHA1 = "H7c79yzIWorc9C7HZSlPmCetHg8=";
     public static final String HMAC_STRING_DIGEST_SHA256 = "MJiEUwAbeTb2VzLdCAYkbQiVMi0DoW/ZC56MAIer6aw=";
     public static final String HMAC_STRING_DIGEST_SHA512 = "/x5fedlzTfCXgK/q5k9d1BkEl0roF5g1wy7+qYS5zW51pS33WGMXeivZGMi4E3p9rQwXLwtzXban78SRHP7rvA==";
+
+    //Test vectors for digital signatures
+    public static final String SIGN_MESSAGE = "916c7d1d268fc0e77c1bef238432573c39be577bbea0998936add2b50a653171" +
+            "ce18a542b0b7f96c1691a3be6031522894a8634183eda38798a0c5d5d79fbd01" +
+            "dd04a8646d71873b77b221998a81922d8105f892316369d5224c9983372d2313" +
+            "c6b1f4556ea26ba49d46e8b561e0fc76633ac9766e68e21fba7edca93c4c7460" +
+            "376d7f3ac22ff372c18f613f2ae2e856af40";
 }

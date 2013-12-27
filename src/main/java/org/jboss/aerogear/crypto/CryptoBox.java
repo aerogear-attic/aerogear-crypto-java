@@ -31,6 +31,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PublicKey;
 
+import static org.jboss.aerogear.AeroGearCrypto.DEFAULT_SHA_ALGORITHM;
+import static org.jboss.aerogear.AeroGearCrypto.ECDH_ALGORITHM_NAME;
 import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SECRET_KEY_SIZE;
 import static org.jboss.aerogear.AeroGearCrypto.TAG_LENGTH;
 import static org.jboss.aerogear.crypto.Util.checkLength;
@@ -48,6 +50,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the secret key
+     *
      * @param key byte array
      */
     public CryptoBox(byte[] key) {
@@ -59,6 +62,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the secret key
+     *
      * @param key reference to the PrivateKey
      */
     public CryptoBox(PrivateKey key) {
@@ -67,6 +71,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the secret key and encoder
+     *
      * @param key
      * @param encoder
      */
@@ -76,6 +81,7 @@ public class CryptoBox {
 
     /**
      * Initializes the box providing the key pair for asymmetric encryption
+     *
      * @param privateKey
      * @param publicKey
      */
@@ -89,8 +95,8 @@ public class CryptoBox {
         MessageDigest hash = null;
         KeyAgreement keyAgree = null;
         try {
-            hash = MessageDigest.getInstance("SHA-256", AeroGearCrypto.PROVIDER);
-            keyAgree = KeyAgreement.getInstance("ECDH", AeroGearCrypto.PROVIDER);
+            hash = MessageDigest.getInstance(DEFAULT_SHA_ALGORITHM, AeroGearCrypto.PROVIDER);
+            keyAgree = KeyAgreement.getInstance(ECDH_ALGORITHM_NAME, AeroGearCrypto.PROVIDER);
             keyAgree.init(privateKey);
             keyAgree.doPhase(publicKey, true);
         } catch (NoSuchAlgorithmException e) {
@@ -106,7 +112,8 @@ public class CryptoBox {
 
     /**
      * Given the IV, encrypt the provided data
-     * @param IV initialization vector
+     *
+     * @param IV      initialization vector
      * @param message data to be encrypted
      * @return byte array with the cipher text
      * @throws RuntimeException
@@ -133,7 +140,8 @@ public class CryptoBox {
 
     /**
      * Given the IV, encrypt and encode the provided data
-     * @param IV initialization vector
+     *
+     * @param IV      initialization vector
      * @param message data to be encrypted
      * @param encoder encoder provided RAW or HEX
      * @return byte array with the cipher text
@@ -144,7 +152,8 @@ public class CryptoBox {
 
     /**
      * Given the IV, decrypt the provided data
-     * @param IV initialization vector
+     *
+     * @param IV         initialization vector
      * @param cipherText data to be decrypted
      * @return byte array with the plain text
      * @throws RuntimeException
@@ -172,17 +181,13 @@ public class CryptoBox {
 
     /**
      * Given the IV, decrypt the provided data
-     * @param IV initialization vector
+     *
+     * @param IV         initialization vector
      * @param cipherText data to be decrypted
-     * @param encoder encoder provided RAW or HEX
+     * @param encoder    encoder provided RAW or HEX
      * @return byte array with the plain text
      */
     public byte[] decrypt(String IV, String cipherText, Encoder encoder) {
         return decrypt(encoder.decode(IV), encoder.decode(cipherText));
-    }
-
-    //TODO
-    public void updateAAD(byte[] authData) {
-        this.authData = authData;
     }
 }
