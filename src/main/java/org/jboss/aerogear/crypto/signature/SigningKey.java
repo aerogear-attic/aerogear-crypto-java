@@ -63,25 +63,6 @@ public class SigningKey {
     public PublicKey getPublicKey() {
         return publicKey;
     }
-
-    public static void main(String[] args) throws SignatureException, InvalidKeyException {
-
-        SigningKey key = new SigningKey();
-        byte[] signature = key.sign("meh".getBytes());
-
-        VerifyKey verifyKey = new VerifyKey(key.getPublicKey());
-        boolean result = verifyKey.verify("meh".getBytes(), signature);
-        System.out.println(result);
-
-
-        /*SigningKey key = new SigningKey();
-        byte[] signature = key.sign("meh".getBytes());
-
-        boolean result = key.verify("meh".getBytes(), signature);
-        System.out.println(result);    */
-
-
-    }
 }
 
 
