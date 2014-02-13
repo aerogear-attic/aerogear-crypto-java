@@ -22,6 +22,7 @@ import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.jboss.aerogear.AeroGearCrypto;
 import org.jboss.aerogear.crypto.encoders.Encoder;
+import org.jboss.aerogear.crypto.keys.KeyPair;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
 
 import javax.crypto.KeyAgreement;
@@ -89,6 +90,14 @@ public class CryptoBox {
         this.cipher = BlockCipher.getInstance();
         this.key = generateSecret(privateKey, publicKey);
         checkLength(key, MINIMUM_SECRET_KEY_SIZE);
+    }
+
+    /**
+     * Initializes the box providing KeyPair as parameter
+     * @param keyPair
+     */
+    public CryptoBox(KeyPair keyPair){
+        this(keyPair.getPrivateKey(), keyPair.getPublicKey());
     }
 
     private byte[] generateSecret(java.security.PrivateKey privateKey, PublicKey publicKey) {
