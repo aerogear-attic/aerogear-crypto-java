@@ -180,7 +180,7 @@ public class CryptoBoxTest {
     }
 
     @Test
-    public void testAcceptKeyPairs() throws Exception {
+    public void testAcceptPublicPrivateKeys() throws Exception {
         try {
             KeyPair keyPair = new KeyPair();
             new CryptoBox(keyPair.getPrivateKey(), keyPair.getPublicKey());
@@ -189,6 +189,18 @@ public class CryptoBoxTest {
             fail("Box should accept key pairs");
         }
     }
+
+    @Test
+    public void testAcceptKeyPair() throws Exception {
+        try {
+            KeyPair keyPair = new KeyPair();
+            new CryptoBox(keyPair);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Box should accept key pairs");
+        }
+    }
+
 
     @Test(expected = RuntimeException.class)
     public void testNullPublicKey() throws Exception {
