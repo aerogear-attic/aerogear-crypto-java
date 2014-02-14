@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.aerogear</groupId>
@@ -56,7 +57,7 @@
             <version>140</version>
             <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>com.madgag</groupId>
             <artifactId>scprov-jdk15on</artifactId>
@@ -144,6 +145,21 @@
                 <version>2.4</version>
                 <configuration>
                     <pushChanges>false</pushChanges>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <classpathDependencyExcludes>
+                        <!-- By default, in test execution, maven puts all declared dependencies on classpath,
+                             even those with 'provided' scope or those marked as 'optional'
+                             (see http://maven.apache.org/surefire/maven-surefire-plugin/examples/configuring-classpath.html).
+                             Therefore we need to exclude Spongy Bounce dependency, as it's intended only for the
+                             Android environment and used through reflection in the code. That way we can be sure,
+                             this library will not fail when used in non-Android project and that AGSEC-160 was fixed properly. -->
+                        <classpathDependencyExclude>com.madgag:scprov-jdk15on</classpathDependencyExclude>
+                    </classpathDependencyExcludes>
                 </configuration>
             </plugin>
         </plugins>
