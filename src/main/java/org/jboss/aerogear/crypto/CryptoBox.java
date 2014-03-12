@@ -26,19 +26,10 @@ import org.jboss.aerogear.crypto.keys.KeyPair;
 import org.jboss.aerogear.crypto.keys.PrivateKey;
 
 import javax.crypto.KeyAgreement;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PublicKey;
+import java.security.*;
 
-import static org.jboss.aerogear.AeroGearCrypto.DEFAULT_SHA_ALGORITHM;
-import static org.jboss.aerogear.AeroGearCrypto.ECDH_ALGORITHM_NAME;
-import static org.jboss.aerogear.AeroGearCrypto.MINIMUM_SECRET_KEY_SIZE;
-import static org.jboss.aerogear.AeroGearCrypto.TAG_LENGTH;
-import static org.jboss.aerogear.crypto.Util.checkLength;
-import static org.jboss.aerogear.crypto.Util.newBuffer;
-import static org.jboss.aerogear.crypto.Util.newByteArray;
+import static org.jboss.aerogear.AeroGearCrypto.*;
+import static org.jboss.aerogear.crypto.Util.*;
 
 /**
  * Class responsible for box and unbox crypto messages given the key
@@ -68,6 +59,15 @@ public class CryptoBox {
      */
     public CryptoBox(PrivateKey key) {
         this(key.toBytes());
+    }
+
+    /**
+     * Initializes the box providing the public key
+     *
+     * @param key reference to the PublicKey
+     */
+    public CryptoBox(PublicKey key) {
+        this(key.getEncoded());
     }
 
     /**
