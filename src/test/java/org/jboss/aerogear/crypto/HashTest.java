@@ -22,7 +22,12 @@ import java.util.Arrays;
 
 import static junit.framework.Assert.assertTrue;
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
-import static org.jboss.aerogear.fixture.TestVectors.*;
+import static org.jboss.aerogear.fixture.TestVectors.SHA256_DIGEST;
+import static org.jboss.aerogear.fixture.TestVectors.SHA256_DIGEST_EMPTY_STRING;
+import static org.jboss.aerogear.fixture.TestVectors.SHA256_MESSAGE;
+import static org.jboss.aerogear.fixture.TestVectors.SHA512_DIGEST;
+import static org.jboss.aerogear.fixture.TestVectors.SHA512_DIGEST_EMPTY_STRING;
+import static org.jboss.aerogear.fixture.TestVectors.SHA512_MESSAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

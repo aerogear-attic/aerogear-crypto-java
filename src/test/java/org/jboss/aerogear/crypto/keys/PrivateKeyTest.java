@@ -23,7 +23,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
-import static org.jboss.aerogear.fixture.TestVectors.BOB_SECRET_KEY;
+import static org.jboss.aerogear.fixture.TestVectors.BOB_PRIVATE_KEY;
 import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -43,7 +43,7 @@ public class PrivateKeyTest {
     @Test
     public void testAcceptsRawValidKey() throws Exception {
         try {
-            byte[] rawKey = HEX.decode(BOB_SECRET_KEY);
+            byte[] rawKey = HEX.decode(BOB_PRIVATE_KEY);
             new PrivateKey(rawKey);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class PrivateKeyTest {
     @Test
     public void testAcceptsHexValidKey() throws Exception {
         try {
-            new PrivateKey(BOB_SECRET_KEY, HEX);
+            new PrivateKey(BOB_PRIVATE_KEY, HEX);
         } catch (Exception e) {
             e.printStackTrace();
             fail("Should return a valid key size");
@@ -76,7 +76,7 @@ public class PrivateKeyTest {
     @Test
     public void testCreateHexValidKey() throws Exception {
         try {
-            new PrivateKey(BOB_SECRET_KEY, HEX).toString();
+            new PrivateKey(BOB_PRIVATE_KEY, HEX).toString();
         } catch (Exception e) {
             e.printStackTrace();
             fail("Should return a valid key size");
@@ -86,7 +86,7 @@ public class PrivateKeyTest {
     @Test
     public void testCreateByteValidKey() throws Exception {
         try {
-            new PrivateKey(BOB_SECRET_KEY, HEX).toBytes();
+            new PrivateKey(BOB_PRIVATE_KEY, HEX).toBytes();
         } catch (Exception e) {
             e.printStackTrace();
             fail("Should return a valid key size");
@@ -110,8 +110,8 @@ public class PrivateKeyTest {
     @Test
     public void testPrivateKeyToString() throws Exception {
         try {
-            PrivateKey key = new PrivateKey(BOB_SECRET_KEY, HEX);
-            assertEquals("Correct private key expected", BOB_SECRET_KEY, key.toString());
+            PrivateKey key = new PrivateKey(BOB_PRIVATE_KEY, HEX);
+            assertEquals("Correct private key expected", BOB_PRIVATE_KEY, key.toString());
         } catch (Exception e) {
             fail("Should return a valid key size");
         }
@@ -120,8 +120,8 @@ public class PrivateKeyTest {
     @Test
     public void testPrivateKeyToBytes() throws Exception {
         try {
-            PrivateKey key = new PrivateKey(BOB_SECRET_KEY, HEX);
-            assertTrue("Correct private key expected", Arrays.equals(HEX.decode(BOB_SECRET_KEY),
+            PrivateKey key = new PrivateKey(BOB_PRIVATE_KEY, HEX);
+            assertTrue("Correct private key expected", Arrays.equals(HEX.decode(BOB_PRIVATE_KEY),
                     key.toBytes()));
         } catch (Exception e) {
             fail("Should return a valid key size");

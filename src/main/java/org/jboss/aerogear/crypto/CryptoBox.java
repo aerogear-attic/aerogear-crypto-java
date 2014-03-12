@@ -40,6 +40,7 @@ import static org.jboss.aerogear.crypto.Util.checkLength;
 import static org.jboss.aerogear.crypto.Util.newBuffer;
 import static org.jboss.aerogear.crypto.Util.newByteArray;
 
+
 /**
  * Class responsible for box and unbox crypto messages given the key
  */
@@ -68,6 +69,15 @@ public class CryptoBox {
      */
     public CryptoBox(PrivateKey key) {
         this(key.toBytes());
+    }
+
+    /**
+     * Initializes the box providing the public key
+     *
+     * @param key reference to the PublicKey
+     */
+    public CryptoBox(PublicKey key) {
+        this(key.getEncoded());
     }
 
     /**
