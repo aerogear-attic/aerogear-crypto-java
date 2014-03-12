@@ -26,14 +26,7 @@ import java.util.Arrays;
 
 import static org.jboss.aerogear.crypto.encoders.Encoder.HEX;
 import static org.jboss.aerogear.crypto.encoders.Encoder.RAW;
-import static org.jboss.aerogear.fixture.TestVectors.BOB_SECRET_KEY;
-import static org.jboss.aerogear.fixture.TestVectors.BOX_MESSAGE;
-import static org.jboss.aerogear.fixture.TestVectors.BOX_NONCE;
-import static org.jboss.aerogear.fixture.TestVectors.BOX_STRING_MESSAGE;
-import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_CIPHERTEXT;
-import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_IV;
-import static org.jboss.aerogear.fixture.TestVectors.CRYPTOBOX_MESSAGE;
-import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
+import static org.jboss.aerogear.fixture.TestVectors.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -168,13 +161,13 @@ public class CryptoBoxTest {
 
     @Test(expected = RuntimeException.class)
     public void testDecryptCorruptedIV() throws Exception {
-        CryptoBox cryptoBox = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        CryptoBox cryptoBox = new CryptoBox(new PrivateKey(BOB_PRIVATE_KEY));
         byte[] IV = HEX.decode(CRYPTOBOX_IV);
         byte[] message = HEX.decode(CRYPTOBOX_MESSAGE);
         byte[] ciphertext = cryptoBox.encrypt(IV, message);
         IV[23] = ' ';
 
-        CryptoBox pandora = new CryptoBox(new PrivateKey(BOB_SECRET_KEY));
+        CryptoBox pandora = new CryptoBox(new PrivateKey(BOB_PRIVATE_KEY));
         pandora.decrypt(IV, ciphertext);
         fail("Should raise an exception");
     }
@@ -227,6 +220,45 @@ public class CryptoBoxTest {
         byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
 
         CryptoBox pandora = new CryptoBox(keyPairPandora.getPrivateKey(), keyPair.getPublicKey());
+        byte[] message = pandora.decrypt(IV, ciphertext);
+        assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
+    }
+
+
+    @Test
+    public void testAsymmetricDecryptionWithRawKeys() throws Exception {
+        byte[] bobPrivateKey = HEX.decode(BOB_PRIVATE_KEY);
+        byte[] bobPublicKey = HEX.decode(BOB_PUBLIC_KEY);
+        byte[] alicePrivateKey = HEX.decode(ALICE_PRIVATE_KEY);
+        byte[] alicePublicKey = HEX.decode(ALICE_PUBLIC_KEY);
+
+        KeyPair cryptoBoxKeyPair = new KeyPair(bobPrivateKey, alicePublicKey);
+
+        CryptoBox cryptoBox = new CryptoBox(cryptoBoxKeyPair.getPrivateKey(), cryptoBoxKeyPair.getPublicKey());
+        byte[] IV = HEX.decode(BOX_NONCE);
+        byte[] expectedMessage = HEX.decode(BOX_MESSAGE);
+        byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
+
+        KeyPair pandoraBoxKeyPair = new KeyPair(alicePrivateKey, bobPublicKey);
+
+        CryptoBox pandora = new CryptoBox(pandoraBoxKeyPair.getPrivateKey(), pandoraBoxKeyPair.getPublicKey());
+        byte[] message = pandora.decrypt(IV, ciphertext);
+        assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
+    }
+
+    @Test
+    public void testAsymmetricDecryptionWithRawKeysAndEncoderProvided() throws Exception {
+
+        KeyPair cryptoBoxKeyPair = new KeyPair(BOB_PRIVATE_KEY, ALICE_PUBLIC_KEY, HEX);
+
+        CryptoBox cryptoBox = new CryptoBox(cryptoBoxKeyPair.getPrivateKey(), cryptoBoxKeyPair.getPublicKey());
+        byte[] IV = HEX.decode(BOX_NONCE);
+        byte[] expectedMessage = HEX.decode(BOX_MESSAGE);
+        byte[] ciphertext = cryptoBox.encrypt(IV, expectedMessage);
+
+        KeyPair pandoraBoxKeyPair = new KeyPair(ALICE_PRIVATE_KEY, BOB_PUBLIC_KEY, HEX);
+
+        CryptoBox pandora = new CryptoBox(pandoraBoxKeyPair.getPrivateKey(), pandoraBoxKeyPair.getPublicKey());
         byte[] message = pandora.decrypt(IV, ciphertext);
         assertTrue("failed to decrypt ciphertext", Arrays.equals(message, expectedMessage));
     }
