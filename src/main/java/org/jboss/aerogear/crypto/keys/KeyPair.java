@@ -17,16 +17,22 @@
 package org.jboss.aerogear.crypto.keys;
 
 import org.jboss.aerogear.AeroGearCrypto;
+import org.jboss.aerogear.crypto.encoders.Encoder;
 
 import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
-import static org.jboss.aerogear.AeroGearCrypto.*;
+import static org.jboss.aerogear.AeroGearCrypto.DEFAULT_CURVE_NAME;
+import static org.jboss.aerogear.AeroGearCrypto.ECDH_ALGORITHM_NAME;
 
 
 /**
@@ -34,16 +40,17 @@ import static org.jboss.aerogear.AeroGearCrypto.*;
  */
 public class KeyPair {
 
-    private final java.security.KeyPair keyPair;
-
+    private java.security.PublicKey publicKey;
+    private java.security.PrivateKey privateKey;
 
     public KeyPair(String algorithm, String curveName) {
 
-        KeyPairGenerator keyGen = null;
+        java.security.KeyPair keyPair = null;
         try {
-            keyGen = KeyPairGenerator.getInstance(algorithm, AeroGearCrypto.PROVIDER);
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm, AeroGearCrypto.PROVIDER);
             ECGenParameterSpec ecSpec = new ECGenParameterSpec(curveName);
             keyGen.initialize(ecSpec, new SecureRandom());
+            keyPair = keyGen.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
@@ -52,8 +59,30 @@ public class KeyPair {
             e.printStackTrace();
         }
 
-        this.keyPair = keyGen.generateKeyPair();
+        this.privateKey = keyPair.getPrivate();
+        this.publicKey = keyPair.getPublic();
+    }
 
+    //ASN.1 key pair encoding
+    public KeyPair(byte[] privateKey, byte[] publicKey) {
+
+        try {
+            final KeyFactory keyFactory = KeyFactory.getInstance(ECDH_ALGORITHM_NAME, AeroGearCrypto.PROVIDER);
+            final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey);
+            final X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKey);
+            this.publicKey = keyFactory.generatePublic(x509KeySpec);
+            this.privateKey = keyFactory.generatePrivate(keySpec);
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public KeyPair(String privateKey, String publicKey, Encoder encoder){
+        this(encoder.decode(privateKey), encoder.decode(publicKey));
     }
 
     /**
@@ -70,7 +99,7 @@ public class KeyPair {
      * @return the reference to the public key
      */
     public java.security.PublicKey getPublicKey() {
-        return keyPair.getPublic();
+        return publicKey;
     }
 
     /**
@@ -79,6 +108,6 @@ public class KeyPair {
      * @return the reference to the private key
      */
     public PrivateKey getPrivateKey() {
-        return keyPair.getPrivate();
+        return privateKey;
     }
 }
