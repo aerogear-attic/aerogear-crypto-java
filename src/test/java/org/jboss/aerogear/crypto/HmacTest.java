@@ -54,7 +54,6 @@ public class HmacTest {
 
     @Test(expected = RuntimeException.class)
     public void testInvalidKey() throws Exception {
-        byte[] salt = HMAC_STRING_SALT.getBytes();
         SecretKey secretKey = null;
         new Hmac(secretKey);
     }
