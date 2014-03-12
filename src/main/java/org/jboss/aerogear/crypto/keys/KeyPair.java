@@ -19,8 +19,13 @@ package org.jboss.aerogear.crypto.keys;
 import org.jboss.aerogear.AeroGearCrypto;
 import org.jboss.aerogear.crypto.encoders.Encoder;
 
-import java.security.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyFactory;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;

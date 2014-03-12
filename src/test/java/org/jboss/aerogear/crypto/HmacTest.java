@@ -6,7 +6,12 @@ import org.junit.Test;
 
 import javax.crypto.SecretKey;
 
-import static org.jboss.aerogear.fixture.TestVectors.*;
+import static org.jboss.aerogear.fixture.TestVectors.HMAC_STRING_DIGEST_SHA1;
+import static org.jboss.aerogear.fixture.TestVectors.HMAC_STRING_DIGEST_SHA256;
+import static org.jboss.aerogear.fixture.TestVectors.HMAC_STRING_DIGEST_SHA512;
+import static org.jboss.aerogear.fixture.TestVectors.HMAC_STRING_MESSAGE;
+import static org.jboss.aerogear.fixture.TestVectors.HMAC_STRING_SALT;
+import static org.jboss.aerogear.fixture.TestVectors.PASSWORD;
 import static org.junit.Assert.assertEquals;
 
 public class HmacTest {
