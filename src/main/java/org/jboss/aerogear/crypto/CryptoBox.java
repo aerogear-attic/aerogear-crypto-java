@@ -50,6 +50,8 @@ public class CryptoBox {
     private AEADBlockCipher cipher;
     private byte[] authData;
 
+    public CryptoBox(){
+    }
     /**
      * Initializes the box providing the secret key
      *
@@ -110,7 +112,7 @@ public class CryptoBox {
         this(keyPair.getPrivateKey(), keyPair.getPublicKey());
     }
 
-    private byte[] generateSecret(java.security.PrivateKey privateKey, PublicKey publicKey) {
+    public byte[] generateSecret(java.security.PrivateKey privateKey, PublicKey publicKey) {
         MessageDigest hash = null;
         KeyAgreement keyAgree = null;
         try {
