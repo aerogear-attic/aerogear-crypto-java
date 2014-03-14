@@ -23,7 +23,6 @@ import org.jboss.aerogear.crypto.password.Pbkdf2;
 
 import javax.crypto.SecretKeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
 import java.security.Security;
 
 /**
@@ -37,8 +36,7 @@ public class AeroGearCrypto {
     }
 
     static {
-
-        if (Security.getProvider("BC") == null) {
+        if (Security.getProvider(PROVIDER) == null) {
             Security.addProvider(new BouncyCastleProvider());
         }
 
