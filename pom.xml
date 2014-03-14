@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.aerogear</groupId>
@@ -56,14 +57,7 @@
             <version>140</version>
             <scope>provided</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>com.madgag</groupId>
-            <artifactId>scprov-jdk15on</artifactId>
-            <version>1.47.0.3</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -177,6 +171,69 @@
                 </plugins>
             </build>
         </profile>
+        <!-- This profile is to build an specific jar file for Android
+             The API was built to support Android, JEE, JSE apps, the problem is to
+             switch between BouncyCastle and SpongyCastle
+        -->
+        <profile>
+            <id>android</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.madgag</groupId>
+                    <artifactId>scprov-jdk15on</artifactId>
+                    <version>1.47.0.3</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>2.2</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <minimizeJar>true</minimizeJar>
+                                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                                    <shadedClassifierName>android</shadedClassifierName>
+                                    <filters>
+                                        <filter>
+                                            <artifact>com.madgag:scprov-jdk15on</artifact>
+                                            <includes>
+                                                <include>org/spongycastle/**</include>
+                                            </includes>
+                                        </filter>
+                                        <filter>
+                                            <artifact>*:*</artifact>
+                                            <excludes>
+                                                <exclude>META-INF/*.SF</exclude>
+                                                <exclude>META-INF/*.DSA</exclude>
+                                                <exclude>META-INF/*.RSA</exclude>
+                                            </excludes>
+                                        </filter>
+                                    </filters>
+                                    <relocations>
+                                        <relocation>
+                                            <pattern>org.spongycastle</pattern>
+                                            <shadedPattern>org.bouncycastle</shadedPattern>
+                                        </relocation>
+                                    </relocations>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
 </project>
