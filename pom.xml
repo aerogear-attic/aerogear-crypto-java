@@ -201,16 +201,9 @@
                                     <goal>shade</goal>
                                 </goals>
                                 <configuration>
-                                    <minimizeJar>true</minimizeJar>
                                     <shadedArtifactAttached>true</shadedArtifactAttached>
                                     <shadedClassifierName>android</shadedClassifierName>
                                     <filters>
-                                        <filter>
-                                            <artifact>com.madgag:scprov-jdk15on</artifact>
-                                            <includes>
-                                                <include>org/spongycastle/**</include>
-                                            </includes>
-                                        </filter>
                                         <filter>
                                             <artifact>*:*</artifact>
                                             <excludes>
