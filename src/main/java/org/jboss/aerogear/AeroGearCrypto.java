@@ -23,7 +23,6 @@ import org.jboss.aerogear.crypto.password.Pbkdf2;
 
 import javax.crypto.SecretKeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
 import java.security.Security;
 
 /**
@@ -37,23 +36,10 @@ public class AeroGearCrypto {
     }
 
     static {
-        if (Util.isAndroid()) {
-            Provider spongyCastleProvider = null;
-            try {
-                spongyCastleProvider = (Provider) Class.forName("org.spongycastle.jce.provider.BouncyCastleProvider").newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            Security.insertProviderAt(spongyCastleProvider, 1);
-        } else {
-            if (Security.getProvider("BC") == null) {
-                Security.addProvider(new BouncyCastleProvider());
-            }
+        if (Security.getProvider(PROVIDER) == null) {
+            Security.addProvider(new BouncyCastleProvider());
         }
+
     }
 
     //PBKDF2
