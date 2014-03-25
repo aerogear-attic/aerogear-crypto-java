@@ -18,13 +18,8 @@ The Android platform unfortunately ships an incomplete and outdated version of [
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.1</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.madgag</groupId>
-        <artifactId>scprov-jdk15on</artifactId>
-        <version>1.47.0.3</version>
+        <version>0.1.3</version>
+        <classifier>android</classifier>
     </dependency>
 
 ### Regular Java projects
@@ -34,7 +29,7 @@ For regular Java EE and Java SE projects, [Bouncy Castle](http://www.bouncycastl
     <dependency>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-crypto</artifactId>
-        <version>0.1.1</version>
+        <version>0.1.3</version>
     </dependency>
     
     <dependency>
