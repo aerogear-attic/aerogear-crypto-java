@@ -39,6 +39,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <debug>true</debug>
+        <junit.version>4.8.2</junit.version>
+        <bouncycastle.version>140</bouncycastle.version>
+        <madgag.version>1.47.0.3</madgag.version>
     </properties>
 
     <dependencies>
@@ -46,14 +49,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>bouncycastle</groupId>
             <artifactId>bcprov-jdk16</artifactId>
-            <version>140</version>
+            <version>${bouncycastle.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -183,7 +186,7 @@
                 <dependency>
                     <groupId>com.madgag</groupId>
                     <artifactId>scprov-jdk15on</artifactId>
-                    <version>1.47.0.3</version>
+                    <version>${madgag.version}</version>
                     <scope>compile</scope>
                 </dependency>
             </dependencies>
