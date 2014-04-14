@@ -24,63 +24,55 @@ import java.security.SecureRandom;
 /**
  * Provides a cryptographically strong RNG
  */
-public class Random {
+public class RandomUtils {
 
-    private SecureRandom secureRandom;
+    private static SecureRandom secureRandom;
     private static final String ALGORITHM = "SHA1PRNG";
 
     /**
-     * Initializes the class with the default algorithm supported
-     */
-    public Random() {
-        this(ALGORITHM);
-    }
-
-    /**
-     * Initializes the class with the provided RNG algorithm name
-     * @param algorithm name provided
-     */
-    public Random(String algorithm) {
-        try {
-            this.secureRandom = SecureRandom.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Generates a number random bytes which defaults to the buffer of 16
+     *
      * @return byte array representation of random bytes
      */
-    public byte[] randomBytes() {
+    public static byte[] randomBytes() {
         return randomBytes(16);
     }
 
     /**
      * Generates a number random bytes specified by the user
+     *
      * @return byte array representation of random bytes
      */
-    public byte[] randomBytes(int n) {
+    public static byte[] randomBytes(int n) {
         byte[] buffer = new byte[n];
-        secureRandom.nextBytes(buffer);
+        if (RandomUtils.secureRandom == null) {
+            try {
+                RandomUtils.secureRandom = SecureRandom.getInstance(ALGORITHM);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+        RandomUtils.secureRandom.nextBytes(buffer);
         return buffer;
     }
 
     /**
      * Generates a number random bytes specified by the user
+     *
      * @return byte array representation of random bytes
      */
-    public String randomBytes(int n, Encoder encoder) {
+    public static String randomBytes(int n, Encoder encoder) {
         return encoder.encode(randomBytes(n));
     }
 
     /**
      * Retrieve the reference to the SecureRandom object
+     *
      * @return SecureRandom
      */
     public SecureRandom getSecureRandom() {
         byte[] buffer = new byte[16];
-        secureRandom.nextBytes(buffer);
+        RandomUtils.secureRandom.nextBytes(buffer);
         return secureRandom;
     }
 }

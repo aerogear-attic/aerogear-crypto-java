@@ -17,7 +17,7 @@
 package org.jboss.aerogear.crypto.password;
 
 import org.jboss.aerogear.AeroGearCrypto;
-import org.jboss.aerogear.crypto.Random;
+import org.jboss.aerogear.crypto.RandomUtils;
 import org.junit.Test;
 
 import static org.jboss.aerogear.fixture.TestVectors.INVALID_PASSWORD;
@@ -30,7 +30,7 @@ public class Pbkdf2Test {
     @Test
     public void testPasswordValidationWithRandomSaltProvided() throws Exception {
         Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
-        byte[] salt = new Random().randomBytes();
+        byte[] salt = RandomUtils.randomBytes();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD, salt);
         assertTrue("Password should be valid", pbkdf2.validate(PASSWORD, rawPassword, salt));
     }
@@ -45,7 +45,7 @@ public class Pbkdf2Test {
     @Test
     public void testInvalidPasswordValidationWithRandomSaltProvided() throws Exception {
         Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
-        byte[] salt = new Random().randomBytes();
+        byte[] salt = RandomUtils.randomBytes();
         byte[] rawPassword = pbkdf2.encrypt(PASSWORD, salt);
         assertFalse("Password should be valid", pbkdf2.validate(INVALID_PASSWORD, rawPassword, salt));
     }
@@ -67,7 +67,7 @@ public class Pbkdf2Test {
     @Test(expected = RuntimeException.class)
     public void testThrowExceptionWithPoorIterationProvided() throws Exception {
         Pbkdf2 pbkdf2 = AeroGearCrypto.pbkdf2();
-        byte[] salt = new Random().randomBytes();
+        byte[] salt = RandomUtils.randomBytes();
         int iterations = 42;
         pbkdf2.encrypt(PASSWORD, salt, iterations);
     }

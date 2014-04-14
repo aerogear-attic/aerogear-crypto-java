@@ -58,7 +58,7 @@ public class BlockCipher {
      * @return byte array with the initialization vector generated
      */
     public static byte[] getIV() {
-        return new Random().randomBytes();
+        return RandomUtils.randomBytes();
     }
 
 }

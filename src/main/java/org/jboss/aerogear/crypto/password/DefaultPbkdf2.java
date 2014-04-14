@@ -16,7 +16,7 @@
  */
 package org.jboss.aerogear.crypto.password;
 
-import org.jboss.aerogear.crypto.Random;
+import org.jboss.aerogear.crypto.RandomUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -64,13 +64,13 @@ public class DefaultPbkdf2 implements Pbkdf2 {
 
     @Override
     public byte[] encrypt(String password) throws InvalidKeySpecException {
-        byte[] salt = new Random().randomBytes();
+        byte[] salt = RandomUtils.randomBytes();
         return encrypt(password, salt);
     }
 
     @Override
     public SecretKey generateSecretKey(String password) throws InvalidKeySpecException {
-        byte[] salt = new Random().randomBytes();
+        byte[] salt = RandomUtils.randomBytes();
         return generateSecretKey(password, salt, ITERATIONS);
     }
 
