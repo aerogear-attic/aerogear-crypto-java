@@ -16,6 +16,8 @@
  */
 package org.jboss.aerogear.crypto;
 
+import org.jboss.aerogear.crypto.encoders.Encoder;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -62,6 +64,14 @@ public class Random {
         byte[] buffer = new byte[n];
         secureRandom.nextBytes(buffer);
         return buffer;
+    }
+
+    /**
+     * Generates a number random bytes specified by the user
+     * @return byte array representation of random bytes
+     */
+    public String randomBytes(int n, Encoder encoder) {
+        return encoder.encode(randomBytes(n));
     }
 
     /**

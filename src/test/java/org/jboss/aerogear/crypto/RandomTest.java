@@ -16,10 +16,12 @@
  */
 package org.jboss.aerogear.crypto;
 
+import org.jboss.aerogear.crypto.encoders.Encoder;
 import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -46,5 +48,12 @@ public class RandomTest {
     public void testProducesDifferentDefaultRandomBytes() throws Exception {
         final int size = 32;
         assertFalse("Should produce different random bytes", Arrays.equals(new Random().randomBytes(), new Random().randomBytes(size)));
+    }
+
+    @Test
+    public void testProducesRandomString() throws Exception {
+        final int size = 32;
+        final int expectedSize = 44;
+        assertEquals("Invalid random bytes", expectedSize, new Random().randomBytes(size, Encoder.BASE64).length());
     }
 }
