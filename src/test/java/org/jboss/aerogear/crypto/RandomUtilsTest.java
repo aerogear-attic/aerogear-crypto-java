@@ -16,6 +16,7 @@
  */
 package org.jboss.aerogear.crypto;
 
+import org.jboss.aerogear.crypto.encoders.Encoder;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -23,28 +24,35 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class RandomTest {
+public class RandomUtilsTest {
     @Test
     public void testProducesRandomBytes() throws Exception {
         final int size = 16;
-        assertEquals("Invalid random bytes", size, new Random().randomBytes(size).length);
+        assertEquals("Invalid random bytes", size, RandomUtils.randomBytes(size).length);
     }
 
     @Test
     public void testProducesDefaultRandomBytes() throws Exception {
         final int size = 16;
-        assertEquals("Invalid random bytes", size, new Random().randomBytes().length);
+        assertEquals("Invalid random bytes", size, RandomUtils.randomBytes().length);
     }
 
     @Test
     public void testProducesDifferentRandomBytes() throws Exception {
         final int size = 16;
-        assertFalse("Should produce different random bytes", Arrays.equals(new Random().randomBytes(size), new Random().randomBytes(size)));
+        assertFalse("Should produce different random bytes", Arrays.equals(RandomUtils.randomBytes(size), new RandomUtils().randomBytes(size)));
     }
 
     @Test
     public void testProducesDifferentDefaultRandomBytes() throws Exception {
         final int size = 32;
-        assertFalse("Should produce different random bytes", Arrays.equals(new Random().randomBytes(), new Random().randomBytes(size)));
+        assertFalse("Should produce different random bytes", Arrays.equals(RandomUtils.randomBytes(), new RandomUtils().randomBytes(size)));
+    }
+
+    @Test
+    public void testProducesRandomString() throws Exception {
+        final int size = 32;
+        final int expectedSize = 44;
+        assertEquals("Invalid random bytes", expectedSize, RandomUtils.randomBytes(size, Encoder.BASE64).length());
     }
 }
