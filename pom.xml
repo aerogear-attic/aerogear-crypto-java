@@ -4,7 +4,7 @@
 
     <groupId>org.jboss.aerogear</groupId>
     <artifactId>aerogear-crypto</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>

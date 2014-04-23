@@ -48,7 +48,7 @@ public class Hmac {
     }
 
     public String digest() throws NoSuchAlgorithmException {
-        return this.digest(Encoder.BASE64, hmac.doFinal(new Random().randomBytes()));
+        return this.digest(Encoder.BASE64, hmac.doFinal(RandomUtils.randomBytes()));
     }
 
 }
