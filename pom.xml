@@ -38,6 +38,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <aerogear.bom.version>0.2.0</aerogear.bom.version>
+
         <debug>true</debug>
 
         <!-- Override version of AeroGear BOM -->
@@ -66,7 +68,7 @@
             <dependency>
                 <groupId>org.jboss.aerogear</groupId>
                 <artifactId>aerogear-bom</artifactId>
-                <version>0.2.0</version>
+                <version>${aerogear.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -75,7 +77,7 @@
             <dependency>
                 <groupId>org.jboss.aerogear</groupId>
                 <artifactId>aerogear-test-bom</artifactId>
-                <version>0.2.0</version>
+                <version>${aerogear.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
