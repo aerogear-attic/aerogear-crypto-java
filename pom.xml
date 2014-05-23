@@ -48,9 +48,6 @@
         <!-- Override version of jboss-parent -->
         <shade.plugin.version>2.2</shade.plugin.version>
 
-        <!-- maven-compiler-plugin properties -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
 
