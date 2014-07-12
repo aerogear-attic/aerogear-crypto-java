@@ -2,5 +2,6 @@ language: java
 jdk:
   - oraclejdk7
   - openjdk6
+script: "mvn -Penforcer clean install -Djsse.enableSNIExtension=false"
 notifications:
   irc: "irc.freenode.org#aerogear"
