@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-parent</artifactId>
-        <version>0.2.2</version>
+        <version>0.2.3</version>
     </parent>
 
     <licenses>
@@ -77,7 +77,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-        
+
             <!-- AeroGear Test Dependencies BOM Imports -->
             <dependency>
                 <groupId>org.jboss.aerogear</groupId>
