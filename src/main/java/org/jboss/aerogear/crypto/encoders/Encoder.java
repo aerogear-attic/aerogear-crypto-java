@@ -28,6 +28,7 @@ public interface Encoder {
     public static final Hex HEX = new Hex();
     public static final Raw RAW = new Raw();
     public static final Base64 BASE64 = new Base64();
+    public static final UrlBase64 URL_BASE64 = new UrlBase64();
 
     /**
      * Decode a provided string to bytes
