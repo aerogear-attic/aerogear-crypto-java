@@ -17,6 +17,9 @@
 package org.jboss.aerogear.crypto.encoders;
 
 
+/**
+ * Url-safe Base64 Encoder
+ */
 public class UrlBase64 implements Encoder {
     
     @Override
