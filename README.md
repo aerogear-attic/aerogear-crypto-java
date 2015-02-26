@@ -1,5 +1,14 @@
 [![Build Status](https://api.travis-ci.org/abstractj/cryptoparty.png)](https://api.travis-ci.org/abstractj/cryptoparty)
 
+|                 | Project Info  |
+| --------------- | ------------- |
+| License:        | Apache License, Version 2.0  |
+| Build:          | Maven  |
+| Documentation:  | https://aerogear.org/docs/  |
+| Issue tracker:  | https://issues.jboss.org/browse/AGSEC  |
+| Mailing lists:  | [aerogear-users](http://aerogear-users.1116366.n5.nabble.com/) ([subscribe](https://lists.jboss.org/mailman/listinfo/aerogear-users))  |
+|                 | [aerogear-dev](http://aerogear-dev.1069024.n5.nabble.com/) ([subscribe](https://lists.jboss.org/mailman/listinfo/aerogear-dev))  |
+
 # AeroGear Crypto Java
 
 A Java API to provide an easy way to use cryptography interfaces for developers built on top of [javax.crypto](http://docs.oracle.com/javase/7/docs/api/javax/crypto/package-summary.html) and [Bouncy Castle](http://www.bouncycastle.org) to support: [AES-GCM authenticated encryption](http://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf), [password based key derivation](http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf) and [elliptic curve cryptography](http://www.nsa.gov/business/programs/elliptic_curve.shtml).
@@ -82,3 +91,21 @@ AeroGear Crypto does not reinvent the wheel by writing encryption algorithms or 
     
     
 We are big believers that there is too much to improve, for this reason you are more than welcome to file a [JIRA](https://issues.jboss.org/browse/AGSEC) if you find any issue or discuss the improvements on the [mailing list](http://aerogear-dev.1069024.n5.nabble.com). Security is not an island and it is our responsibility like developers to make it better.
+
+## Documentation
+
+For more details about the current release, please consult [our documentation](http://aerogear.org/docs/guides/aerogear-android/).
+
+## Development
+
+If you would like to help develop AeroGear you can join our [developer's mailing list](https://lists.jboss.org/mailman/listinfo/aerogear-dev), join #aerogear on Freenode, or shout at us on Twitter @aerogears.
+
+Also takes some time and skim the [contributor guide](http://aerogear.org/docs/guides/Contributing/)
+
+## Questions?
+
+Join our [user mailing list](https://lists.jboss.org/mailman/listinfo/aerogear-users) for any questions or help! We really hope you enjoy app development with AeroGear!
+
+## Found a bug?
+
+If you found a bug please create a ticket for us on [Jira](https://issues.jboss.org/browse/AGDROID) with some steps to reproduce it.
