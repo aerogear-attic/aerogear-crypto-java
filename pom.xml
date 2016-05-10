@@ -4,13 +4,13 @@
 
     <groupId>org.jboss.aerogear</groupId>
     <artifactId>aerogear-crypto</artifactId>
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>org.jboss.aerogear</groupId>
         <artifactId>aerogear-parent</artifactId>
-        <version>0.2.8</version>
+        <version>0.2.20</version>
     </parent>
 
     <licenses>
@@ -38,7 +38,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aerogear.bom.version>0.2.8</aerogear.bom.version>
+        <aerogear.bom.version>0.2.20</aerogear.bom.version>
 
         <debug>true</debug>
 
@@ -303,6 +303,7 @@
                                                 <exclude>META-INF/*.SF</exclude>
                                                 <exclude>META-INF/*.DSA</exclude>
                                                 <exclude>META-INF/*.RSA</exclude>
+                                                <exclude>META-INF/maven/com.madgag/**</exclude>
                                             </excludes>
                                         </filter>
                                     </filters>

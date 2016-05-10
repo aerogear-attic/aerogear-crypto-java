@@ -18,9 +18,9 @@ package org.jboss.aerogear.crypto.encoders;
 
 /**
  * Converts hexadecimal Strings.
- * <p/>
+ * <p>
  * This class is thread-safe.
- * <p/>
+ * <p>
  * This class contains code from the Apache Common-Codec project    
  */
 public class Hex implements Encoder {
