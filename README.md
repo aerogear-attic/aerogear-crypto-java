@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/aerogear/aerogear-crypto-java.png)](https://travis-ci.org/aerogear/aerogear-crypto-java)
+[![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jboss.aerogear/aerogear-crypto/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jboss.aerogear/aerogear-crypto)
 
 
 |                 | Project Info  |
