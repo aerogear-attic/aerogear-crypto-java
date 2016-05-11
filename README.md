@@ -1,4 +1,5 @@
-[![Build Status](https://api.travis-ci.org/abstractj/cryptoparty.png)](https://api.travis-ci.org/abstractj/cryptoparty)
+[![Build Status](https://travis-ci.org/aerogear/aerogear-crypto-java.png)](https://travis-ci.org/aerogear/aerogear-crypto-java)
+
 
 |                 | Project Info  |
 | --------------- | ------------- |
