@@ -31,17 +31,6 @@ import java.security.Security;
 public class AeroGearCrypto {
 
     public static final String PROVIDER = Util.isAndroid() ? "SC" : "BC";
-
-    private AeroGearCrypto() {
-    }
-
-    static {
-        if (Security.getProvider(PROVIDER) == null) {
-            Security.addProvider(new BouncyCastleProvider());
-        }
-
-    }
-
     //PBKDF2
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
     public static final int DERIVED_KEY_LENGTH = 256;
@@ -65,6 +54,15 @@ public class AeroGearCrypto {
     //Default SHA
     public static final String DEFAULT_SHA_ALGORITHM = "SHA-256";
 
+    private AeroGearCrypto() {
+    }
+
+    static {
+        if (Security.getProvider(PROVIDER) == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+
+    }
 
     public static Pbkdf2 pbkdf2() {
         try {
