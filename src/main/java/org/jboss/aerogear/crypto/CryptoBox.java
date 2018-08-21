@@ -132,18 +132,18 @@ public class CryptoBox {
     }
 
     /**
-     * Given the IV, encrypt the provided data
+     * Given the iv, encrypt the provided data
      *
-     * @param IV      initialization vector
+     * @param iv      initialization vector
      * @param message data to be encrypted
      * @return byte array with the cipher text
      * @throws RuntimeException
      */
-    public byte[] encrypt(final byte[] IV, final byte[] message) throws RuntimeException {
+    public byte[] encrypt(final byte[] iv, final byte[] message) throws RuntimeException {
 
         AEADParameters aeadParams = new AEADParameters(
                 new KeyParameter(key), TAG_LENGTH,
-                IV,
+                iv,
                 authData);
 
         cipher.init(true, aeadParams);
@@ -160,30 +160,30 @@ public class CryptoBox {
     }
 
     /**
-     * Given the IV, encrypt and encode the provided data
+     * Given the iv, encrypt and encode the provided data
      *
-     * @param IV      initialization vector
+     * @param iv      initialization vector
      * @param message data to be encrypted
      * @param encoder encoder provided RAW or HEX
      * @return byte array with the cipher text
      */
-    public byte[] encrypt(String IV, String message, Encoder encoder) {
-        return encrypt(encoder.decode(IV), encoder.decode(message));
+    public byte[] encrypt(String iv, String message, Encoder encoder) {
+        return encrypt(encoder.decode(iv), encoder.decode(message));
     }
 
     /**
-     * Given the IV, decrypt the provided data
+     * Given the iv, decrypt the provided data
      *
-     * @param IV         initialization vector
+     * @param iv         initialization vector
      * @param cipherText data to be decrypted
      * @return byte array with the plain text
      * @throws RuntimeException
      */
-    public byte[] decrypt(byte[] IV, byte[] cipherText) throws RuntimeException {
+    public byte[] decrypt(byte[] iv, byte[] cipherText) throws RuntimeException {
 
         AEADParameters aeadParams = new AEADParameters(
                 new KeyParameter(key), TAG_LENGTH,
-                IV,
+                iv,
                 authData);
 
         cipher.init(false, aeadParams);
@@ -201,14 +201,14 @@ public class CryptoBox {
     }
 
     /**
-     * Given the IV, decrypt the provided data
+     * Given the iv, decrypt the provided data
      *
-     * @param IV         initialization vector
+     * @param iv         initialization vector
      * @param cipherText data to be decrypted
      * @param encoder    encoder provided RAW or HEX
      * @return byte array with the plain text
      */
-    public byte[] decrypt(String IV, String cipherText, Encoder encoder) {
-        return decrypt(encoder.decode(IV), encoder.decode(cipherText));
+    public byte[] decrypt(String iv, String cipherText, Encoder encoder) {
+        return decrypt(encoder.decode(iv), encoder.decode(cipherText));
     }
 }
